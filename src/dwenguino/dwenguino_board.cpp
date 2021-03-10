@@ -5,17 +5,9 @@
  *      Author: Tom Neutens
  */
 
-#include "dwenguino/dwenguino_board.h"
+#include "dwenguino/dwenguino_board.hpp"
 
 void initBoard(void){
-
-	//if LCD display is connected (default)
-#ifndef	NO_LCD
-	initLCD();
-	clearLCD();
-	backlightOff();
-#endif
-
 	//	Set buttons as inputs
 
     DDRC &= ~(1 << 6);

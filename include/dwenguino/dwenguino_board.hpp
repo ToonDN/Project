@@ -59,7 +59,7 @@
 #include <util/delay.h>
 
 #ifndef NO_LCD
-#include "dwenguino/dwenguino_lcd.h"
+#include "dwenguino/dwenguino_lcd.hpp"
 #endif
 
 /*

@@ -5,13 +5,16 @@
  *      Author: Tom Neutens
  */
 
-#include "dwenguino/dwenguino_lcd.h"
-#include "dwenguino/dwenguino_board.h"
+#include "dwenguino/dwenguino_lcd.hpp"
+#include "dwenguino/dwenguino_board.hpp"
 
-//	Keeps track of curent line number and character position.
-struct lcd_info_type lcd_info;
 
-void initLCD(void){
+DwenguinoLCD::DwenguinoLCD(){
+	lcd_info.line = 0;
+	lcd_info.pos = 0;
+}
+
+void DwenguinoLCD::initLCD(void){
 	LCD_DATA_DIR = 0xff;	//	Set LCD backlight als output.
 
 	_delay_ms(5);
@@ -46,13 +49,13 @@ void initLCD(void){
 
 }
 
-void clearLCD(void){
+void DwenguinoLCD::clearLCD(void){
 	commandLCD(0b00000001);
 	//_delay_ms(2);
 	setCursorLCD(0, 0);
 }
 
-void commandLCD(const BYTE c) {
+void DwenguinoLCD::commandLCD(const BYTE c) {
 	BYTE temp;
 
 	temp = LCD_DATA;		//	Save the current state on datapins for LED's
@@ -69,7 +72,7 @@ void commandLCD(const BYTE c) {
 
 }
 
-void setCursorLCD(BYTE l, BYTE p) {
+void DwenguinoLCD::setCursorLCD(BYTE l, BYTE p) {
 	BYTE c;
 
 	// check if input is valid
@@ -95,7 +98,7 @@ void setCursorLCD(BYTE l, BYTE p) {
 }
 
 
-void appendCharToLCD(const char c) {
+void DwenguinoLCD::appendCharToLCD(const char c) {
   unsigned temp = LCD_DATA;   // Save current data on datapins for LED's
   if (lcd_info.pos>LCD_LASTPOS){
     if (lcd_info.line){
@@ -120,7 +123,7 @@ void appendCharToLCD(const char c) {
 }
 
 
-void printCharToLCD(const char c, BYTE l, BYTE p) {
+void DwenguinoLCD::printCharToLCD(const char c, BYTE l, BYTE p) {
 	// set cursor to selected position
 	setCursorLCD(l,p);
 
@@ -128,13 +131,13 @@ void printCharToLCD(const char c, BYTE l, BYTE p) {
 	appendCharToLCD(c);
 }
 
-void appendStringToLCD_(const char* message) {
+void DwenguinoLCD::appendStringToLCD_(const char* message) {
 	while (*message) {
 		appendCharToLCD(*message++);
 	}
 }
 
-void printStringToLCD(char* message, BYTE l, BYTE p) {
+void DwenguinoLCD::printStringToLCD(const char* message, BYTE l, BYTE p) {
 	// set cursor to selected position
 	setCursorLCD(l,p);
 
@@ -142,20 +145,15 @@ void printStringToLCD(char* message, BYTE l, BYTE p) {
 	appendStringToLCD(message);
 }
 
-/*void appendStringToLCDcharptr(char* message) {
-  while(*message) {
-    appendCharToLCD(*message++);
-  }
-}*/
 
-void appendIntToLCD(int i) {
+void DwenguinoLCD::appendIntToLCD(int i) {
   char buffer[7];
   itoa(i,buffer, 10);
   buffer[6] = 0;
   appendStringToLCD_(buffer);
 }
 
-void printIntToLCD(int i, BYTE l, BYTE p) {
+void DwenguinoLCD::printIntToLCD(int i, BYTE l, BYTE p) {
 	// set cursor to selected position
 	setCursorLCD(l,p);
 
