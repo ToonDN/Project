@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "io.h": "c",
+        "delay.h": "c",
+        "servo.h": "c",
+        "dwenguino_board.h": "c",
+        "dwenguino_lcd.h": "c"
+    }
+}
