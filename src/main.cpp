@@ -4,12 +4,15 @@
 #include "dwenguino/dwenguino_board.hpp"
 #include "dwenguino/dwenguino_lcd.hpp"
 #include "servos.h"
+#include "drawer.h"
 
-DwenguinoLCD lcd;
+
+
+// DwenguinoLCD lcd;
 
 int main(void)
 {
-  initBoard();
+  // initBoard();
 
   // Create servo variables
   //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
@@ -25,6 +28,8 @@ int main(void)
   servo2.value = 1090;
   servo2.pin = PINC1;
 
+  Drawer drawer = Drawer();
+
   // Set servos as output
   DDRC = 0xFF;
 
@@ -35,11 +40,17 @@ int main(void)
   ICR1 = 39999;
   sei();
 
-  servo1.rotateTo(90);
+  servo1.rotateTo(0);
+  servo2.rotateTo(0);
+
+  //drawer.goTo(servo1, servo2, 50,50);
+  
+  // servo2.value = 1000;
+  
 
   while (1)
   {
-    if (TCNT1 > 1080 && TCNT1 < 5100)
+    if (TCNT1 > 1000 && TCNT1 < 5100)
     {
       if (TCNT1 >= servo1.value && bit_is_set(PORTC, servo1.pin))
         PORTC &= ~(1 << servo1.pin);
