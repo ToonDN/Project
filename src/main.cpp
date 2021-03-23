@@ -40,10 +40,10 @@ int main(void)
   ICR1 = 39999;
   sei();
 
-  servo1.rotateTo(0);
+  servo1.rotateTo(40);
   servo2.rotateTo(0);
 
-  //drawer.goTo(servo1, servo2, 50,50);
+  drawer.goTo(servo1, servo2, 30,70);
   
   // servo2.value = 1000;
   

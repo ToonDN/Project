@@ -1,9 +1,12 @@
 #include "servos.h"
 #include "drawer.h"
 #include "math.h"
+#include "queue.h"
 
-const double PI = 3.1415926535;
+const double PI = 3.141592653589793238;
 const double ZERO = 0.000000000001;
+
+void Drawer::straightLineTo() {}
 
 void Drawer::goTo(Servo &servo1, Servo &servo2, double x, double y)
 {

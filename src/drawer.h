@@ -1,4 +1,5 @@
 #include "servos.h"
+#include "queue.h"
 
 #ifndef DRAWER_H
 #define DRAWER_H
@@ -15,6 +16,10 @@ public:
     double que[1000];
     int queIndex = 0;
 
+    Queue queue = Queue();
+
     void goTo(Servo& servo1, Servo& servo2, double x, double y);
+
+    void straightLineTo();
 };
 #endif
