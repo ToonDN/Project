@@ -12,13 +12,12 @@ bool Queue::isEmpty()
 
 void Queue::add(const double pos1, const double pos2)
 {
-    
-    Node node = Node(); // Creates a pointer to a new node
-    node.pos1 = pos1;
-    node.pos2 = pos2;
 
-    Node *p; // Pointer to new node
-    p = &node;
+    // Creates a pointer to a new node
+
+    Node *p = &Node();
+    p->pos1 = pos1;
+    p->pos2 = pos2;
 
     if (first == NULL)
     {
@@ -46,7 +45,6 @@ void Queue::remove()
     else
     {
         // If the queue had more than one node
-
         Node *p = first;     // Store the pointer to the first node
         first = first->next; // Set the first node equal to the node it is pointing to
         free(p);             // Clear the memory of pointer to the previously first node
@@ -55,6 +53,7 @@ void Queue::remove()
 
 Node Queue::getFirst()
 {
+    // LEDS = first->pos1;
     return *first; // Return the first node
 }
 

@@ -28,10 +28,14 @@ int main(void)
   ICR1 = 39999; //20 ms
   sei();
 
-  drawer.goTo(50, 70);
-  drawer.goTo(50, 50);
-  // drawer.straightLineTo(90, 90);
-  // drawer.straightLineTo(servo1, servo2, 0, 0);
+  drawer.goTo(1, 1);
+  // drawer.goTo(40, 10);
+  drawer.straightLineTo(30, 50);
+  drawer.straightLineTo(1, 50);
+  drawer.straightLineTo(60, 50);
+  drawer.straightLineTo(20, 50);
+
+  
 
   // servo2.value = 1000;
 
@@ -53,11 +57,12 @@ int main(void)
       }
       else if (not drawer.hasChanged)
       {
+        
         drawer.rotateTimeLeft -= 1;
         drawer.hasChanged = true;
       }
 
-      // drawer.drawNext(;
+      drawer.drawNext();
 
       //* Buttons control
       if (!(PINE & 1 << PINE7)) //* Top
