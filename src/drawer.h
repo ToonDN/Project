@@ -1,5 +1,6 @@
 #include "servos.h"
 #include "queue.h"
+#include "figures.h"
 
 #ifndef DRAWER_H
 #define DRAWER_H
@@ -21,5 +22,11 @@ public:
     void goTo(Servo& servo1, Servo& servo2, double x, double y);
 
     void straightLineTo();
+
+    void draw_Square(Servo& servo1, Servo& servo2, Square sq);
+
+    void draw_Circle(Servo& servo1, Servo& servo2, Circle cir);
+
+    void draw_2deg_Bezier(Servo& servo1, Servo& servo2, Bezier bez);
 };
 #endif
