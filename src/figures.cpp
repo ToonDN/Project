@@ -1,5 +1,5 @@
 #include "figures.h"
-#include <iostream>
+
 
 // void Square::show_var() 
 // {

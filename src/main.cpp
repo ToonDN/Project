@@ -6,13 +6,12 @@
 #include "servos.h"
 #include "drawer.h"
 
-
-
 // DwenguinoLCD lcd;
 
 int main(void)
 {
-  // initBoard();
+  initBoard();
+  LEDS = 0;
 
   // Create servo variables
   //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
@@ -37,16 +36,19 @@ int main(void)
   TCCR1B |= 1 << WGM12 | 1 << WGM13 | 1 << CS11;
   TIMSK1 |= 1 << OCIE1A;
 
-  ICR1 = 39999;
+  ICR1 = 39999; //20 ms
   sei();
 
   servo1.rotateTo(40);
   servo2.rotateTo(0);
 
-  drawer.goTo(servo1, servo2, 30,70);
-  
+  Queue queue = Queue();
+
+  // drawer.goTo(servo1, servo2, 50, 50);
+  drawer.straightLineTo(90, 90);
+  // drawer.straightLineTo(servo1, servo2, 0, 0);
+
   // servo2.value = 1000;
-  
 
   while (1)
   {
@@ -60,9 +62,24 @@ int main(void)
     }
     else
     {
+      if (TCNT1 < 20000)
+      {
+        drawer.hasChanged = false;
+      }
+      else if (not drawer.hasChanged)
+      {
+        drawer.rotateTimeLeft -= 1;
+        drawer.hasChanged = true;
+      }
+
+      
+
+      drawer.drawNext(servo1, servo2);
+
       //* Buttons control
       if (!(PINE & 1 << PINE7)) //* Top
       {
+        servo1.value += 0.001;
       }
       if (!(PINE & 1 << PINE6)) //* Right
       {

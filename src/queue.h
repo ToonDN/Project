@@ -5,11 +5,10 @@
 
 class Queue
 {
-private:
-    Node *first; // Pointer to first node
-    Node *last; // Pointer to last node
 
 public:
+    Node *first;    // Pointer to first node
+    Node *last;     // Pointer to last node
     bool isEmpty(); // Returns true if the queue is empty
 
     void add(double pos1, double pos2); // Adds a node to the queue

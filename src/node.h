@@ -3,7 +3,10 @@
 
 struct Node
 {
-    double pos1, pos2; // Positions of the servos
+public:
+    // Positions of the servos
+    double pos1;
+    double pos2;
     Node *next; // Pointer to the next node
 };
 
