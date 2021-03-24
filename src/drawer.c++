@@ -15,7 +15,7 @@ void Drawer::straightLineTo(double x, double y)
 }
 
 Drawer::Drawer()
-{       
+{
     servo1.high = 4750;
     servo1.low = 1330;
     servo1.value = 1330;
@@ -29,12 +29,17 @@ Drawer::Drawer()
 
 void Drawer::goTo(double x, double y)
 {
-    if (x == 0)
+    if (x == 0 && y == 0)
+    {
+        x += ZERO;
+        y += ZERO;
+    }
+    else if (x == 0)
     {
         x = ZERO;
         y -= ZERO;
     }
-    if (y == 0)
+    else if (y == 0)
     {
         y = ZERO;
         x -= ZERO;
@@ -57,14 +62,15 @@ void Drawer::drawNext()
     {
         rotateTimeLeft = 100;
 
-        Node node = queue.getFirst();
-        // double pos1 = node.pos1;
-        // double pos2 = node.pos2;
+        const double pos1 = queue.first->pos1;
+        const double pos2 = queue.first->pos2;
 
-        servo1.rotateTo(90);
-        servo2.rotateTo(90);
+        // servo1.rotateTo(90);
+        // servo2.rotateTo(90);
 
-        // Drawer::goTo(pos1, pos2);
+        LEDS = pos1;
+
+        Drawer::goTo(pos1, pos2);
 
         queue.remove();
     }

@@ -9,10 +9,9 @@ class Drawer
 {
 public: 
     Drawer();
-    
+
     Servo servo1 = Servo();
     Servo servo2 = Servo();
-
 
     Queue queue = Queue();
 
@@ -23,9 +22,8 @@ public:
     const double offset2 = 0;
 
 
-    int rotateTimeLeft = 0; // Clock cycles left until the servos may rotate again
+    int rotateTimeLeft = 100; // Clock cycles left until the servos may rotate again
     bool hasChanged = false; // Value to determine if the rotateTimeLeft has been modified this clock cycle
-
 
 
     void draw_Square(Square sq);
