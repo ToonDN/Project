@@ -7,7 +7,15 @@
 
 class Drawer
 {
-public:    
+public: 
+    Drawer();
+    
+    Servo servo1 = Servo();
+    Servo servo2 = Servo();
+
+
+    Queue queue = Queue();
+
     const double len1 = 13 / 0.277;
     const double len2 = 14.7 / 0.277;
 
@@ -18,18 +26,18 @@ public:
     int rotateTimeLeft = 0; // Clock cycles left until the servos may rotate again
     bool hasChanged = false; // Value to determine if the rotateTimeLeft has been modified this clock cycle
 
-    Queue queue = Queue();
 
-    void goTo(Servo& servo1, Servo& servo2, double x, double y);
 
-    void draw_Square(Servo& servo1, Servo& servo2, Square sq);
+    void draw_Square(Square sq);
 
-    void draw_Circle(Servo& servo1, Servo& servo2, Circle cir);
+    void draw_Circle(Circle cir);
 
-    void draw_2deg_Bezier(Servo& servo1, Servo& servo2, Bezier bez);
+    void draw_2deg_Bezier(Bezier bez);
+
+    void goTo(double x, double y);
     
     void straightLineTo(double x, double y);
 
-    void drawNext(Servo& servo1, Servo& servo2);
+    void drawNext();
 };
 #endif

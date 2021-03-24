@@ -9,11 +9,25 @@
 const double PI = 3.141592653589793238;
 const double ZERO = 0.000000000001;
 
-void Drawer::straightLineTo(double x, double y) {
+void Drawer::straightLineTo(double x, double y)
+{
     queue.add(x, y);
 }
 
-void Drawer::goTo(Servo &servo1, Servo &servo2, double x, double y)
+Drawer::Drawer()
+{       
+    servo1.high = 4750;
+    servo1.low = 1330;
+    servo1.value = 1330;
+    servo1.pin = PINC0;
+
+    servo2.high = 5050;
+    servo2.low = 1330;
+    servo2.value = 1090;
+    servo2.pin = PINC1;
+}
+
+void Drawer::goTo(double x, double y)
 {
     if (x == 0)
     {
@@ -37,24 +51,24 @@ void Drawer::goTo(Servo &servo1, Servo &servo2, double x, double y)
     servo2.rotateTo(a2);
 }
 
-void Drawer::drawNext(Servo &servo1, Servo &servo2)
-{   
+void Drawer::drawNext()
+{
     if (rotateTimeLeft <= 0 && not queue.isEmpty())
-    {   
+    {
         rotateTimeLeft = 100;
 
         Node node = queue.getFirst();
-        double pos1 = node.pos1;
-        double pos2 = node.pos2;
-
+        // double pos1 = node.pos1;
+        // double pos2 = node.pos2;
 
         servo1.rotateTo(90);
         servo2.rotateTo(90);
 
-        // Drawer::goTo(servo1, servo2, pos1, pos2);
+        // Drawer::goTo(pos1, pos2);
 
         queue.remove();
-    } else {
-        
+    }
+    else
+    {
     }
 }

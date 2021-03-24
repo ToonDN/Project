@@ -15,17 +15,6 @@ int main(void)
 
   // Create servo variables
   //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
-  Servo servo1 = Servo();
-  servo1.high = 4750;
-  servo1.low = 1330;
-  servo1.value = 1330;
-  servo1.pin = PINC0;
-
-  Servo servo2 = Servo();
-  servo2.high = 5050;
-  servo2.low = 1330;
-  servo2.value = 1090;
-  servo2.pin = PINC1;
 
   Drawer drawer = Drawer();
 
@@ -39,13 +28,9 @@ int main(void)
   ICR1 = 39999; //20 ms
   sei();
 
-  servo1.rotateTo(40);
-  servo2.rotateTo(0);
-
-  Queue queue = Queue();
-
-  // drawer.goTo(servo1, servo2, 50, 50);
-  drawer.straightLineTo(90, 90);
+  drawer.goTo(50, 70);
+  drawer.goTo(50, 50);
+  // drawer.straightLineTo(90, 90);
   // drawer.straightLineTo(servo1, servo2, 0, 0);
 
   // servo2.value = 1000;
@@ -54,11 +39,11 @@ int main(void)
   {
     if (TCNT1 > 1000 && TCNT1 < 5100)
     {
-      if (TCNT1 >= servo1.value && bit_is_set(PORTC, servo1.pin))
-        PORTC &= ~(1 << servo1.pin);
+      if (TCNT1 >= drawer.servo1.value && bit_is_set(PORTC, drawer.servo1.pin))
+        PORTC &= ~(1 << drawer.servo1.pin);
 
-      if (TCNT1 >= servo2.value && bit_is_set(PORTC, servo2.pin))
-        PORTC &= ~(1 << servo2.pin);
+      if (TCNT1 >= drawer.servo2.value && bit_is_set(PORTC, drawer.servo2.pin))
+        PORTC &= ~(1 << drawer.servo2.pin);
     }
     else
     {
@@ -72,31 +57,20 @@ int main(void)
         drawer.hasChanged = true;
       }
 
-      
-
-      drawer.drawNext(servo1, servo2);
+      // drawer.drawNext(;
 
       //* Buttons control
       if (!(PINE & 1 << PINE7)) //* Top
       {
-        servo1.value += 0.001;
       }
       if (!(PINE & 1 << PINE6)) //* Right
       {
-        if (servo1.value < servo1.high)
-        {
-          servo1.value += 0.1;
-        }
       }
       if (!(PINE & 1 << PINE5)) //* Bottom
       {
       }
       if (!(PINE & 1 << PINE4)) //* Left
       {
-        if (servo1.value > servo1.low)
-        {
-          servo1.value -= 0.1;
-        }
       }
       if (!(PINC & 1 << PINC7)) //* Center
       {

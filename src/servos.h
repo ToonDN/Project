@@ -15,6 +15,7 @@ public:
     void rotateTo(double value);
     void setValue();
 
+
 };
 
 #endif
