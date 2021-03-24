@@ -31,6 +31,10 @@ public:
     void draw_Square(Square sq);
 
     void draw_Circle(Circle cir);
+    // step 1: for x= center-radius -->center+radius
+    // (x,y) ---> (x+dx, y+ (x-center)*dx)/(sqrt(radius^2-(x-center)^2))
+    // step 2: for x= center+radius --> center-radius
+    // (x,y) ---> (x-dx, y- (x-center)*dx)/(sqrt(radius^2-(x-center)^2))
 
     void draw_2deg_Bezier(Bezier bez);
 

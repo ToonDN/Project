@@ -7,7 +7,6 @@ struct point
     double posy;
 };
 
-// de draw funcites staan voorlopig in commentaar, want we willen die waarschijnlijk in drawer definieren
 
  class Square
  {
@@ -19,7 +18,7 @@ struct point
     
     void show_var(); // prints the values
     void set_var(point c,double l, double w);// change the values 
-    // void draw(); // draws the square 
+    
      
  };
  
@@ -32,7 +31,7 @@ public:
 
     void show_var();// prints the values
     void set_var(point c,double r);// change the values 
-    // void draw(); // draws the square
+    
 };
 
 class Bezier
@@ -44,7 +43,7 @@ public:
 
     void show_var(); // prints the values
     void set_var(point P0,point P1, point P2); // change the values 
-    // void draw(); // draws Bezier curve
+    
 };
 
 
