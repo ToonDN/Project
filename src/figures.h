@@ -11,11 +11,12 @@ struct point
 
  class Square
  {
- private:
+    
+ public:
     point center; 
     double length; //height y
     double width; //height x
- public:
+    
     void show_var(); // prints the values
     void set_var(point c,double l, double w);// change the values 
     // void draw(); // draws the square 
@@ -24,10 +25,11 @@ struct point
  
 class Circle
 {
-private:
+    
+public:
     point center;
     double radius;
-public:
+
     void show_var();// prints the values
     void set_var(point c,double r);// change the values 
     // void draw(); // draws the square
@@ -35,11 +37,11 @@ public:
 
 class Bezier
 {
-private:
+public:
     point P0;
     point P1;
     point P2;
-public:
+
     void show_var(); // prints the values
     void set_var(point P0,point P1, point P2); // change the values 
     // void draw(); // draws Bezier curve
