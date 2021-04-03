@@ -46,5 +46,12 @@ public:
     
 };
 
-
+bool close_to(double var,double cst){
+    const double offset= 0.05; //value to be decided
+    if (cst-offset< var<cst+offset)
+    {
+        return true;
+    }
+    return false;
+}
 #endif 
