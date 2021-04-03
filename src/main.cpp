@@ -59,28 +59,12 @@ int main(void)
   while (1)
   {
     drawer.drawNext();
-
-    if (TCNT1 < 20000)
-    {
-      if (drawer.hasChanged)
-      {
-        drawer.hasChanged = false;
-      }
-    }
-    else if (not drawer.hasChanged)
-    {
-
-      drawer.rotateTimeLeft -= 1;
-      drawer.hasChanged = true;
-    }
-
+    
     ButtonControl();
   }
 
   return 0;
 }
-
-
 
 ISR(TIMER1_COMPA_vect)
 {
@@ -95,4 +79,6 @@ ISR(TIMER1_COMPA_vect)
     if (TCNT1 >= drawer.servo2.value)
       PORTC &= ~(1 << drawer.servo2.pin);
   }
+
+  drawer.rotateTimeLeft -= 1;
 }

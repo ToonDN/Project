@@ -36,3 +36,13 @@ void Bezier::set_var(point A,point B,point C){
     P1=B;
     P2=C;
 }
+
+
+bool close_to(double var,double cst){
+    const double offset= 0.05; //value to be decided
+    if (cst-offset < var && var < cst+offset)
+    {
+        return true;
+    }
+    return false;
+}

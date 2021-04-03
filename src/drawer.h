@@ -25,7 +25,6 @@ public:
     const double dt= 0.01; // actual value to be decided
 
     int rotateTimeLeft = 50; // Clock cycles left until the servos may rotate again
-    bool hasChanged = false; // Value to determine if the rotateTimeLeft has been modified this clock cycle
 
 
     void draw_Square(Square sq);
