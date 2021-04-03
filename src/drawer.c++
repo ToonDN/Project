@@ -11,7 +11,7 @@ const double ZERO = 0.000000000001;
 
 void Drawer::straightLineTo(double x, double y)
 {
-    queue.add(x, y);
+    queue.Enqueue(x, y);
 }
 
 Drawer::Drawer()
@@ -58,21 +58,21 @@ void Drawer::goTo(double x, double y)
 
 void Drawer::drawNext()
 {
-    if (rotateTimeLeft <= 0 && not queue.isEmpty())
+    if (rotateTimeLeft <= 0 and not queue.isEmpty())
     {
-        rotateTimeLeft = 100;
+        rotateTimeLeft = 50;
 
-        const double pos1 = queue.first->pos1;
-        const double pos2 = queue.first->pos2;
+        const double pos1 = queue.Pos1();
+        const double pos2 = queue.Pos2();
 
         // servo1.rotateTo(90);
         // servo2.rotateTo(90);
 
-        LEDS = pos1;
+        // LEDS = pos1;
 
         Drawer::goTo(pos1, pos2);
 
-        queue.remove();
+        queue.Dequeue();
     }
     else
     {

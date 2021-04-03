@@ -1,23 +1,26 @@
-#include "node.h"
+#include<stdio.h>
+#include<stdlib.h>
 
 #ifndef QUEUE_H
 #define QUEUE_H
 
 class Queue
 {
-
 public:
-    Node *first;    // Pointer to first node
-    Node *last;     // Pointer to last node
-    bool isEmpty(); // Returns true if the queue is empty
+    struct Node *front = NULL;
+    struct Node *rear = NULL;
 
-    void add(double pos1, double pos2); // Adds a node to the queue
+    void Enqueue(double pos1, double pos2);
 
-    void remove(); // Removes a node from the queue
+    void Dequeue();
 
-    Node getFirst(); // Returns the first node in the queue
+    double Pos1();
 
-    Node getLast(); // Returns the last node in the queue
+    double Pos2();
+
+    bool isEmpty();
+
+    int Length();
 };
 
 #endif
