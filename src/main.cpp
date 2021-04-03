@@ -10,6 +10,26 @@ DwenguinoLCD lcd;
 
 Drawer drawer = Drawer();
 
+void ButtonControl()
+{
+  //* Buttons control
+  if (!(PINE & 1 << PINE7)) //* Top
+  {
+  }
+  if (!(PINE & 1 << PINE6)) //* Right
+  {
+  }
+  if (!(PINE & 1 << PINE5)) //* Bottom
+  {
+  }
+  if (!(PINE & 1 << PINE4)) //* Left
+  {
+  }
+  if (!(PINC & 1 << PINC7)) //* Center
+  {
+  }
+}
+
 int main(void)
 {
   initBoard();
@@ -74,27 +94,5 @@ ISR(TIMER1_COMPA_vect)
 
     if (TCNT1 >= drawer.servo2.value)
       PORTC &= ~(1 << drawer.servo2.pin);
-  }
-}
-
-
-
-void ButtonControl()
-{
-  //* Buttons control
-  if (!(PINE & 1 << PINE7)) //* Top
-  {
-  }
-  if (!(PINE & 1 << PINE6)) //* Right
-  {
-  }
-  if (!(PINE & 1 << PINE5)) //* Bottom
-  {
-  }
-  if (!(PINE & 1 << PINE4)) //* Left
-  {
-  }
-  if (!(PINC & 1 << PINC7)) //* Center
-  {
   }
 }
