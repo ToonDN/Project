@@ -150,7 +150,7 @@ void Drawer::draw_2deg_Bezier(Bezier bez){
     //set drawer_off
     goTo(x,y);
     //set drawer_on
-    while (close_to(x,p2x) and close_to(y,p2y))
+    while (t<1)
     {   
         t+=dt;
         x+= ( -(1-t)*2*p0x-2*dt*p1x +t*2*p2x )*dt;
