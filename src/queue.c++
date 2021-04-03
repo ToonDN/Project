@@ -1,63 +1,69 @@
-#include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include "queue.h"
 #include "node.h"
-#include "dwenguino/dwenguino_board.hpp"
+#include "queue.h"
+
+struct Node *front = NULL;
+struct Node *rear = NULL;
+
+void Queue::Enqueue(double pos1, double pos2)
+{
+    struct Node *temp =
+        (struct Node *)malloc(sizeof(struct Node));
+    temp->pos1 = pos1;
+    temp->pos2 = pos2;
+
+    temp->next = NULL;
+    if (front == NULL && rear == NULL)
+    {
+        front = rear = temp;
+        return;
+    }
+    rear->next = temp;
+    rear = temp;
+}
+
+void Queue::Dequeue()
+{
+    struct Node *temp = front;
+    if (front == NULL)
+    {
+        return;
+    }
+    if (front == rear)
+    {
+        front = rear = NULL;
+    }
+    else
+    {
+        front = front->next;
+    }
+    free(temp);
+}
+
+double Queue::Pos1()
+{
+    return front->pos1;
+}
+
+double Queue::Pos2()
+{
+    return front->pos2;
+}
 
 bool Queue::isEmpty()
 {
-    // Returns true if the first and last pointers are null because this indicates that the que is empty
-    return (first == NULL && last == NULL);
-};
-
-void Queue::add(const double pos1, const double pos2)
-{
-
-    // Creates a pointer to a new node
-
-    Node *p = &Node();
-    p->pos1 = pos1;
-    p->pos2 = pos2;
-
-    if (first == NULL)
-    {
-        // Set both pointers because the queue had at most one node
-        first = p;
-        last = p;
-    }
-    else
-    {
-        // If the queue had more than one node, set the next pointer currently last node to our newly created node
-        last->next = p;
-
-        // Now set the last node equal to our newly created node
-        last = p;
-    }
+    return (front == NULL);
 }
 
-void Queue::remove()
+int Queue::Length()
 {
-    if (first == NULL)
+    int result = 0;
+    struct Node *temp = front;
+    while (temp != NULL)
     {
-        free(first); // Clear the memory used by the first node
-        first = last = NULL;
+        result++;
+        temp = temp->next;
     }
-    else
-    {
-        // If the queue had more than one node
-        Node *p = first;     // Store the pointer to the first node
-        first = first->next; // Set the first node equal to the node it is pointing to
-        free(p);             // Clear the memory of pointer to the previously first node
-    }
+    return result;
 }
-
-Node Queue::getFirst()
-{
-    // LEDS = first->pos1;
-    return *first; // Return the first node
-}
-
-Node Queue::getLast()
-{
-    return *last; // Return the last node
-};

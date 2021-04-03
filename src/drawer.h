@@ -1,6 +1,6 @@
 #include "servos.h"
-#include "queue.h"
 #include "figures.h"
+#include "queue.h"
 
 #ifndef DRAWER_H
 #define DRAWER_H
@@ -24,7 +24,7 @@ public:
     const double dx= 0.05; // actual value to be decided
     const double dt= 0.01; // actual value to be decided
 
-    int rotateTimeLeft = 100; // Clock cycles left until the servos may rotate again
+    int rotateTimeLeft = 50; // Clock cycles left until the servos may rotate again
     bool hasChanged = false; // Value to determine if the rotateTimeLeft has been modified this clock cycle
 
 
