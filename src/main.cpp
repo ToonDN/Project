@@ -5,6 +5,7 @@
 #include "dwenguino/dwenguino_lcd.hpp"
 #include "servos.h"
 #include "drawer.h"
+#include "figures.h"
 
 DwenguinoLCD lcd;
 
@@ -32,6 +33,8 @@ void ButtonControl()
 
 int main(void)
 {
+  //testfigures();
+  
   initBoard();
   LEDS = 0;
 

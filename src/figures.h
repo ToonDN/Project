@@ -46,5 +46,5 @@ public:
     
 };
 
-//bool close_to(double var,double cst);
+void testfigures();
 #endif 
