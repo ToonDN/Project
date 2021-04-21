@@ -15,7 +15,8 @@ void Drawer::straightLineTo(double x, double y)
     queue.Enqueue(x, y);
 }
 
-Drawer::Drawer() {
+Drawer::Drawer()
+{
     servo1.high = 4750;
     servo1.low = 1330;
     servo1.value = 1330;
@@ -27,14 +28,25 @@ Drawer::Drawer() {
     servo2.pin = PINC1;
 }
 
-void Drawer::goTo(double x, double y) {
-    if (x == 0 && y == 0) {
+void Drawer::enqueue(double x, double y)
+{
+    queue.Enqueue(x, y);
+}
+
+void Drawer::goTo(double x, double y)
+{
+    if (x == 0 && y == 0)
+    {
         x += ZERO;
         y += ZERO;
-    } else if (x == 0) {
+    }
+    else if (x == 0)
+    {
         x = ZERO;
         y -= ZERO;
-    } else if (y == 0) {
+    }
+    else if (y == 0)
+    {
         y = ZERO;
         x -= ZERO;
     }
@@ -46,6 +58,18 @@ void Drawer::goTo(double x, double y) {
     double a1 = 180 - (angle1 * 180 / PI) + offset1;
     double a2 = 180 - (angle2 * 180 / PI) + offset2;
 
+    //* Set rotatetimeleft based on rotation angle
+    double diff1 = abs(a1 - Drawer::servo1.angle);
+    double diff2 = abs(a2 - Drawer::servo2.angle);
+    if (diff1 > diff2)
+    {
+        rotateTimeLeft = diff1;
+    }
+    else
+    {
+        rotateTimeLeft = diff2 ;
+    }
+
     servo1.rotateTo(a1);
     servo2.rotateTo(a2);
 }
@@ -54,61 +78,58 @@ void Drawer::drawNext()
 {
     if (rotateTimeLeft <= 0 and not queue.isEmpty())
     {
-        rotateTimeLeft = 50;
-
         const double pos1 = queue.Pos1();
         const double pos2 = queue.Pos2();
-
-        // servo1.rotateTo(90);
-        // servo2.rotateTo(90);
-
-        // LEDS = pos1;
 
         Drawer::goTo(pos1, pos2);
 
         queue.Dequeue();
-    } else {
+    }
+    else
+    {
     }
 }
 // draw instructions need to be ale to turn the drawer on or off
-void Drawer::draw_Square(Square sq) {
+void Drawer::draw_Square(Square sq)
+{
     const point c = sq.center;
     const double l = sq.length;
     const double w = sq.width;
     double x = c.posx - w / 2;
     double y = c.posy - l / 2;
     // set drawer_off
-    goTo(x, y);
+    enqueue(x, y);
     // set drawer_on
     while (y < c.posy + l / 2) // arm: lower left -> upper left
     {
         y += dx;
-        goTo(x, y);
+        enqueue(x, y);
     }
     while (x < c.posx + w / 2) //arm: upper left -> upper right
     {
         x += dx;
-        goTo(x, y);
+        enqueue(x, y);
     }
     while (y > c.posy - l / 2) //arm: upper right -> lower right
     {
         y -= dx;
-        goTo(x, y);
+        enqueue(x, y);
     }
     while (x > c.posx - l / 2) //arm: lower right->lower left
     {
         y -= dx;
-        goTo(x, y);
+        enqueue(x, y);
     }
 }
 
-void Drawer::draw_Circle(Circle c) {
+void Drawer::draw_Circle(Circle c)
+{
     const point o = c.center;
     const double r = c.radius;
     double x = o.posx - r + ZERO;
     double y = o.posy;
     // set drawer_off
-    goTo(x, y);
+    enqueue(x, y);
     //set_drawer_on
     while (x < o.posx + r) // position +180 -> +0
     {
@@ -119,8 +140,7 @@ void Drawer::draw_Circle(Circle c) {
         }
 
         y += -(x - o.posx) * dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
-        goTo(x, y);
-        
+        enqueue(x, y);
     }
     while (x > o.posx - r) // position -0-> -180
     {
@@ -130,11 +150,12 @@ void Drawer::draw_Circle(Circle c) {
             x -= ZERO;
         }
         y += (x - o.posx) * dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
-        goTo(x, y);
+        enqueue(x, y);
     }
 }
 
-void Drawer::draw_2deg_Bezier(Bezier bez){
+void Drawer::draw_2deg_Bezier(Bezier bez)
+{
     // Bezier:= t-> (1-t)^2*P0+2(1-t)P1 +t^2*P2
     const double p0x = bez.P0.posx;
     const double p0y = bez.P0.posy;
@@ -142,19 +163,17 @@ void Drawer::draw_2deg_Bezier(Bezier bez){
     const double p1y = bez.P1.posy;
     const double p2x = bez.P2.posx;
     const double p2y = bez.P2.posy;
-    double t=0;
-
+    double t = 0;
 
     double x = p0x;
     double y = p0y;
     //set drawer_off
-    goTo(x,y);
+    enqueue(x, y);
     //set drawer_on
-    while (t<1)
-    {   
-        t+=dt;
-        x+= ( -(1-t)*2*p0x-2*dt*p1x +t*2*p2x )*dt;
-        y+= ( -(1-t)*2*p0y-2*dt*p1y +t*2*p2y )*dt;
+    while (t < 1)
+    {
+        t += dt;
+        x += (-(1 - t) * 2 * p0x - 2 * dt * p1x + t * 2 * p2x) * dt;
+        y += (-(1 - t) * 2 * p0y - 2 * dt * p1y + t * 2 * p2y) * dt;
     }
-    
 }

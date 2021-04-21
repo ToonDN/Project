@@ -50,11 +50,15 @@ int main(void)
 
   lcd.initLCD();
 
-  drawer.goTo(0, 99);
+  for (int i = 1; i < 50; i++) {
+    drawer.enqueue(i, i);
+  }
 
-  drawer.straightLineTo(30, 50);
-  drawer.straightLineTo(1, 50);
-  drawer.straightLineTo(60, 50);
+
+
+
+  // drawer.draw_Square(Square())
+  
 
   while (1)
   {
