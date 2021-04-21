@@ -15,6 +15,7 @@ public:
 
     Queue queue = Queue();
 
+
     const double len1 = 13 / 0.277;
     const double len2 = 14.7 / 0.277;
 
@@ -42,5 +43,7 @@ public:
     void straightLineTo(double x, double y);
 
     void drawNext();
+
+    void enqueue(double x, double y);
 };
 #endif
