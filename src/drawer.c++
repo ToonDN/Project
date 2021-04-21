@@ -22,9 +22,9 @@ Drawer::Drawer()
     servo1.value = 1330;
     servo1.pin = PINC0;
 
-    servo2.high = 5050;
+    servo2.high = 4750;
     servo2.low = 1330;
-    servo2.value = 1090;
+    servo2.value = 1330;
     servo2.pin = PINC1;
 }
 
@@ -81,7 +81,7 @@ void Drawer::drawNext()
         const double pos1 = queue.Pos1();
         const double pos2 = queue.Pos2();
 
-        Drawer::goTo(pos1, pos2);
+        Drawer::goTo(pos1*82/100, pos2*82/100);
 
         queue.Dequeue();
     }

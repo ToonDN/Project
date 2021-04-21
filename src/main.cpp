@@ -33,7 +33,7 @@ void ButtonControl()
 
 int main(void)
 {
-  //testfigures();
+  testfigures();
   
   initBoard();
   LEDS = 0;
@@ -53,11 +53,12 @@ int main(void)
 
   lcd.initLCD();
 
-  for (int i = 1; i < 50; i++) {
-    drawer.enqueue(i, i);
-  }
-
-
+  // for (int i = 1; i < 50; i++) {
+  //   drawer.enqueue(i, i);
+  // }
+  // drawer.servo1.rotateTo(90);
+  // drawer.servo2.rotateTo(45);
+  drawer.enqueue(77.1,0);
 
 
   // drawer.draw_Square(Square())
