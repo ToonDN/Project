@@ -7,8 +7,7 @@
 //*  - Final result must contain same amount of 0 as 1 in each row and column
 //*  - No identical rows or columns
 
-void *
-memcpy(void *dest, const void *src, size_t len)
+void *memcpy(void *dest, const void *src, size_t len)
 {
 	char *d = static_cast<char *>(dest);
 	const char *s = (char *)src;
