@@ -12,6 +12,7 @@ public:
 
     Servo servo1 = Servo();
     Servo servo2 = Servo();
+    Servo servo_drawstate= Servo();
 
     Queue queue = Queue();
 
@@ -45,5 +46,7 @@ public:
     void drawNext();
 
     void enqueue(double x, double y);
-};
+    void Set_Drawstate( bool set_drawing);
+}
+;
 #endif

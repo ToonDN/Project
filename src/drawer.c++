@@ -19,13 +19,18 @@ Drawer::Drawer()
 {
     servo1.high = 4750;
     servo1.low = 1330;
-    servo1.value = 1330;
+    servo1.value = 2500;
     servo1.pin = PINC0;
 
     servo2.high = 4750;
     servo2.low = 1330;
-    servo2.value = 1330;
+    servo2.value = 2500;
     servo2.pin = PINC1;
+
+    servo_drawstate.high = 4750;
+    servo_drawstate.low = 1330;
+    servo_drawstate.value = 1330;
+    servo_drawstate.pin = PIND2;
 }
 
 void Drawer::enqueue(double x, double y)
@@ -176,4 +181,14 @@ void Drawer::draw_2deg_Bezier(Bezier bez)
         x += (-(1 - t) * 2 * p0x - 2 * dt * p1x + t * 2 * p2x) * dt;
         y += (-(1 - t) * 2 * p0y - 2 * dt * p1y + t * 2 * p2y) * dt;
     }
+}
+
+void Drawer::Set_Drawstate( bool set_drawing){
+    if (set_drawing)
+    {
+        this->servo_drawstate.rotateTo(135);
+    } else
+    {
+        this->servo_drawstate.rotateTo(110);
+    }    
 }

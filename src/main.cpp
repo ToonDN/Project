@@ -1,92 +1,92 @@
-#include <avr/io.h>
-#include <util/delay.h>
-#include <avr/interrupt.h>
+#include "drawer.h"
 #include "dwenguino/dwenguino_board.hpp"
 #include "dwenguino/dwenguino_lcd.hpp"
-#include "servos.h"
-#include "drawer.h"
 #include "figures.h"
+#include "servos.h"
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <util/delay.h>
 
 DwenguinoLCD lcd;
 
 Drawer drawer = Drawer();
 
-void ButtonControl()
-{
-  //* Buttons control
-  if (!(PINE & 1 << PINE7)) //* Top
-  {
-  }
-  if (!(PINE & 1 << PINE6)) //* Right
-  {
-  }
-  if (!(PINE & 1 << PINE5)) //* Bottom
-  {
-  }
-  if (!(PINE & 1 << PINE4)) //* Left
-  {
-  }
-  if (!(PINC & 1 << PINC7)) //* Center
-  {
-  }
+void ButtonControl() {
+    //* Buttons control
+    if (!(PINE & 1 << PINE7)) //* Top
+    {
+    }
+    if (!(PINE & 1 << PINE6)) //* Right
+    {
+    }
+    if (!(PINE & 1 << PINE5)) //* Bottom
+    {
+    }
+    if (!(PINE & 1 << PINE4)) //* Left
+    {
+    }
+    if (!(PINC & 1 << PINC7)) //* Center
+    {
+    }
 }
 
-int main(void)
-{
-  testfigures();
-  
-  initBoard();
-  LEDS = 0;
+int main(void) {
+    testfigures();
 
-  // Create servo variables
-  //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
+    initBoard();
+    LEDS = 0;
 
-  // Set servos as output
-  DDRC = 0xFF;
+    // Create servo variables
+    //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
 
-  TCCR1A |= 1 << WGM11;
-  TCCR1B |= 1 << WGM12 | 1 << WGM13 | 1 << CS11;
-  TIMSK1 |= 1 << OCIE1A;
+    // Set servos as output
+    DDRC = 0xFF;
+    DDRD = 0xFF;
 
-  ICR1 = 39999; //20 ms
-  sei();
+    TCCR1A |= 1 << WGM11;
+    TCCR1B |= 1 << WGM12 | 1 << WGM13 | 1 << CS11;
+    TIMSK1 |= 1 << OCIE1A;
 
-  lcd.initLCD();
+    ICR1 = 39999; //20 ms
+    sei();
 
-  // for (int i = 1; i < 50; i++) {
-  //   drawer.enqueue(i, i);
-  // }
-  // drawer.servo1.rotateTo(90);
-  // drawer.servo2.rotateTo(45);
-  drawer.enqueue(77.1,0);
+    lcd.initLCD();
+    // drawer.servo1.rotateTo(45);
+    // drawer.servo2.rotateTo(45);
+    drawer.Set_Drawstate(true);
+    ;
+    // for (int i = 1; i < 50; i++) {
+    //   drawer.enqueue(i, i);
+    // }
+    // drawer.servo1.rotateTo(90);
+    // drawer.servo2.rotateTo(45);
+    drawer.enqueue(77.1, 0);
 
+    // drawer.draw_Square(Square())
 
-  // drawer.draw_Square(Square())
-  
+    while (1) {
+        drawer.drawNext();
 
-  while (1)
-  {
-    drawer.drawNext();
-    
-    ButtonControl();
-  }
+        ButtonControl();
+    }
 
-  return 0;
+    return 0;
 }
 
-ISR(TIMER1_COMPA_vect)
-{
-  // LEDS = TCNT1;
-  PORTC = 0xFF;
+ISR(TIMER1_COMPA_vect) {
+    // LEDS = TCNT1;
+    PORTC = 0xFF;
+    PORTD = 0xFF;
 
-  while (TCNT1 < 5100)
-  {
-    if (TCNT1 >= drawer.servo1.value)
-      PORTC &= ~(1 << drawer.servo1.pin);
+    while (TCNT1 < 5100) {
+        if (TCNT1 >= drawer.servo1.value)
+            PORTC &= ~(1 << drawer.servo1.pin);
 
-    if (TCNT1 >= drawer.servo2.value)
-      PORTC &= ~(1 << drawer.servo2.pin);
-  }
+        if (TCNT1 >= drawer.servo2.value)
+            PORTC &= ~(1 << drawer.servo2.pin);
+        if (TCNT1 >= drawer.servo_drawstate.value)
+            PORTD &= ~(1 << drawer.servo_drawstate.pin);
+    }
 
-  drawer.rotateTimeLeft -= 1;
+    drawer.rotateTimeLeft -= 1;
 }

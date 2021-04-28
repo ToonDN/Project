@@ -393,7 +393,7 @@ void Puzzle::print(bool clean = true, int arr[10][10] = NULL)
 
 	for (int i = 0; i < 10; i++)
 	{
-		char string[20];
+		
 		for (int j = 0; j < 10; j++)
 		{
 			if (arr[i][j] == 2 && clean)
