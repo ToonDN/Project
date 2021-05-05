@@ -107,22 +107,22 @@ void Drawer::draw_Square(Square sq)
     // set drawer_on
     while (y < c.posy + l / 2) // arm: lower left -> upper left
     {
-        y += dx;
+        y += sq.dx;
         enqueue(x, y);
     }
     while (x < c.posx + w / 2) //arm: upper left -> upper right
     {
-        x += dx;
+        x += sq.dx;
         enqueue(x, y);
     }
     while (y > c.posy - l / 2) //arm: upper right -> lower right
     {
-        y -= dx;
+        y -= sq.dx;
         enqueue(x, y);
     }
     while (x > c.posx - l / 2) //arm: lower right->lower left
     {
-        y -= dx;
+        y -= sq.dx;
         enqueue(x, y);
     }
 }
@@ -138,30 +138,30 @@ void Drawer::draw_Circle(Circle c)
     //set_drawer_on
     while (x < o.posx + r) // position +180 -> +0
     {
-        x += dx;
+        x += c.dx;
         if (x == r + o.posx) //avoid singularities
         {
             x += ZERO;
         }
 
-        y += -(x - o.posx) * dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
+        y += -(x - o.posx) * c.dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
         enqueue(x, y);
     }
     while (x > o.posx - r) // position -0-> -180
     {
-        x -= dx;
+        x -= c.dx;
         if (x == r - o.posx) //avoid singularities
         {
             x -= ZERO;
         }
-        y += (x - o.posx) * dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
+        y += (x - o.posx) * c.dx / sqrt(r * r - (x - o.posx) * (x - o.posx));
         enqueue(x, y);
     }
 }
 
 void Drawer::draw_2deg_Bezier(Bezier bez)
 {
-    // Bezier:= t-> (1-t)^2*P0+2(1-t)P1 +t^2*P2
+    // Bezier:= t-> (1-t)^2*P0+2(1-t)*t*P1 +t^2*P2
     const double p0x = bez.P0.posx;
     const double p0y = bez.P0.posy;
     const double p1x = bez.P1.posx;
@@ -177,9 +177,9 @@ void Drawer::draw_2deg_Bezier(Bezier bez)
     //set drawer_on
     while (t < 1)
     {
-        t += dt;
-        x += (-(1 - t) * 2 * p0x - 2 * dt * p1x + t * 2 * p2x) * dt;
-        y += (-(1 - t) * 2 * p0y - 2 * dt * p1y + t * 2 * p2y) * dt;
+        t += bez.dt;
+        x += (-(1 - t) * 2 * p0x - 2 * (1-2*t) * p1x + t * 2 * p2x) * bez.dt;
+        y += (-(1 - t) * 2 * p0y - 2 * (1-2*t) * p1y + t * 2 * p2y) * bez.dt;
     }
 }
 

@@ -23,8 +23,8 @@ public:
     const double offset1 = 0;
     const double offset2 = 0;
 
-    const double dx= 0.05; // actual value to be decided
-    const double dt= 0.01; // actual value to be decided
+    
+    
 
     int rotateTimeLeft = 50; // Clock cycles left until the servos may rotate again
 
