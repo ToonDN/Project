@@ -5,10 +5,11 @@ struct Node
 {
 public:
     // Positions of the servos
-    short unsigned int *data;
+    double pos1;
+    double pos2;
     Node *next; // Pointer to the next node
 
-    Node(short unsigned int *d) : data(d) {}
+    
 };
 
 #endif
