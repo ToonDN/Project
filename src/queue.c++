@@ -6,11 +6,11 @@
 struct Node *front = NULL;
 struct Node *rear = NULL;
 
-void Queue::Enqueue(double pos1, double pos2) {
+void Queue::Enqueue(struct Node node) {
     struct Node *temp =
         (struct Node *)malloc(sizeof(struct Node));
-    temp->pos1 = pos1;
-    temp->pos2 = pos2;
+
+    temp = &node;
 
     temp->next = NULL;
     if (front == NULL && rear == NULL) {
@@ -34,13 +34,17 @@ void Queue::Dequeue() {
     free(temp);
 }
 
-double Queue::Pos1() {
-    return front->pos1;
+struct Node Queue::getFirst() {
+    return *front;
 }
 
-double Queue::Pos2() {
-    return front->pos2;
-}
+// double Queue::Pos1() {
+//     return front->pos1;
+// }
+
+// double Queue::Pos2() {
+//     return front->pos2;
+// }
 
 bool Queue::isEmpty() {
     return (front == NULL);

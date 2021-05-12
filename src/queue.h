@@ -10,13 +10,15 @@ public:
     struct Node *front = NULL;
     struct Node *rear = NULL;
 
-    void Enqueue(double pos1, double pos2);
+    void Enqueue(struct Node node);
 
     void Dequeue();
 
-    double Pos1();
+    // double Pos1();
 
-    double Pos2();
+    // double Pos2();
+
+    struct Node getFirst();
 
     bool isEmpty();
 

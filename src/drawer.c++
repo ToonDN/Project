@@ -12,7 +12,8 @@ const double ZERO = 0.000000000001;
 
 void Drawer::straightLineTo(double x, double y)
 {
-    queue.Enqueue(x, y);
+
+    queue.Enqueue(Node(x, y));
 }
 
 Drawer::Drawer()
@@ -35,7 +36,7 @@ Drawer::Drawer()
 
 void Drawer::enqueue(double x, double y)
 {
-    queue.Enqueue(x, y);
+    queue.Enqueue(Node(x,y));
 }
 
 void Drawer::goTo(double x, double y)
@@ -83,8 +84,9 @@ void Drawer::drawNext()
 {
     if (rotateTimeLeft <= 0 and not queue.isEmpty())
     {
-        const double pos1 = queue.Pos1();
-        const double pos2 = queue.Pos2();
+        const struct Node node = queue.getFirst();
+        const double pos1 = node.pos1;
+        const double pos2 = node.pos2;
 
         if (pos1 == 10000)
         {
@@ -95,11 +97,12 @@ void Drawer::drawNext()
         {
             rotateTimeLeft = 15;
             Set_Drawstate(false);
-        }else if (pos1 ==-10001)
+        }
+        else if (pos1 == -10001)
         {
             rotateTimeLeft = 15;
         }
-        
+
         else
         {
 
@@ -223,6 +226,7 @@ void Drawer::Set_Drawstate(bool set_drawing)
     }
 }
 
-void Drawer::enqueue_pauze(){
-    enqueue (-10001,0);
+void Drawer::enqueue_pauze()
+{
+    enqueue(-10001, 0);
 }
