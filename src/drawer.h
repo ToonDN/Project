@@ -49,6 +49,7 @@ public:
     void Set_Drawstate( bool set_drawing);
 
     void enqueue_drawstate(bool state);
+    void enqueue_pauze();
 }
 ;
 #endif

@@ -15,7 +15,7 @@ struct point
     point center; 
     double length; //height y
     double width; //height x
-    const double dx= 0.05; // actual value to be decided
+    const double dx= 0.025; // actual value to be decided
     
     void show_var(); // prints the values
     void set_var(point c,double l, double w);// change the values 
@@ -58,6 +58,15 @@ class Grid
     const double dx= 0.05; // actual value to be decided
 };
 
+point makepoint(double x, double y);
+
+Square makeSquare(point c, double l, double h);
+
+
+Circle makeCircle(point c, double r);
+
+
+Bezier makeBezier(point p0, point p1, point p2);
 
 void testfigures();
 #endif 

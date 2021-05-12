@@ -19,17 +19,17 @@ Drawer::Drawer()
 {
     servo1.high = 4750;
     servo1.low = 1330;
-    servo1.value = 2500;
+    servo1.value = 2800;
     servo1.pin = PINC0;
 
     servo2.high = 4750;
     servo2.low = 1330;
-    servo2.value = 2500;
+    servo2.value = 2800;
     servo2.pin = PINC1;
 
     servo_drawstate.high = 4750;
     servo_drawstate.low = 1330;
-    servo_drawstate.value = 1330;
+    servo_drawstate.value = 3800;
     servo_drawstate.pin = PIND2;
 }
 
@@ -88,14 +88,18 @@ void Drawer::drawNext()
 
         if (pos1 == 10000)
         {
-            rotateTimeLeft = 100;
+            rotateTimeLeft = 15;
             Set_Drawstate(true);
         }
         else if (pos1 == -10000)
         {
-            rotateTimeLeft = 100;
+            rotateTimeLeft = 15;
             Set_Drawstate(false);
+        }else if (pos1 ==-10001)
+        {
+            rotateTimeLeft = 15;
         }
+        
         else
         {
 
@@ -117,28 +121,33 @@ void Drawer::draw_Square(Square sq)
     double x = c.posx - w / 2;
     double y = c.posy - l / 2;
     // set drawer_off
+    enqueue_drawstate(false);
     enqueue(x, y);
     // set drawer_on
+    enqueue_drawstate(true);
     while (y < c.posy + l / 2) // arm: lower left -> upper left
     {
         y += sq.dx;
         enqueue(x, y);
     }
-    while (x < c.posx + w / 2) //arm: upper left -> upper right
-    {
-        x += sq.dx;
-        enqueue(x, y);
-    }
-    while (y > c.posy - l / 2) //arm: upper right -> lower right
-    {
-        y -= sq.dx;
-        enqueue(x, y);
-    }
-    while (x > c.posx - l / 2) //arm: lower right->lower left
-    {
-        y -= sq.dx;
-        enqueue(x, y);
-    }
+    // enqueue_pauze();
+    // while (x < c.posx + w / 2) //arm: upper left -> upper right
+    // {
+    //     x += sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_pauze();
+    // while (y > c.posy - l / 2) //arm: upper right -> lower right
+    // {
+    //     y -= sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_pauze();
+    // while (x > c.posx - w / 2) //arm: lower right->lower left
+    // {
+    //     x -= sq.dx;
+    //     enqueue(x, y);
+    // }
 }
 
 void Drawer::draw_Circle(Circle c)
@@ -206,10 +215,14 @@ void Drawer::Set_Drawstate(bool set_drawing)
 {
     if (set_drawing)
     {
-        this->servo_drawstate.rotateTo(135);
+        this->servo_drawstate.rotateTo(0);
     }
     else
     {
-        this->servo_drawstate.rotateTo(110);
+        this->servo_drawstate.rotateTo(130);
     }
+}
+
+void Drawer::enqueue_pauze(){
+    enqueue (-10001,0);
 }

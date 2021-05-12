@@ -40,7 +40,7 @@ void Bezier::set_var(point A, point B, point C)
     P2 = C;
 }
 
-point makepoint(double x, double y)
+point makepoint( double x, double y)
 {
     point p;
     p.posx = x;

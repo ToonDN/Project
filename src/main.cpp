@@ -36,13 +36,12 @@ int main(void) {
     initBoard();
     LEDS = 0;
 
-    mainTest();
+    //mainTest();
 
     
     
 
-    return 5;
-    testfigures();
+    //return 5;
 
     initBoard();
     LEDS = 0;
@@ -62,19 +61,19 @@ int main(void) {
     sei();
 
     lcd.initLCD();
-    // drawer.servo1.rotateTo(45);
-    // drawer.servo2.rotateTo(45);
-    drawer.Set_Drawstate(true);
-    ;
-    // for (int i = 1; i < 50; i++) {
-    //   drawer.enqueue(i, i);
-    // }
-    // drawer.servo1.rotateTo(90);
-    // drawer.servo2.rotateTo(45);
-    drawer.enqueue(77.1, 0);
+    
+    //drawer.enqueue_drawstate(true);
+    // drawer.enqueue(60,30);
+    // drawer.enqueue_drawstate(true);
+    // drawer.enqueue(50,50);
+    // drawer.enqueue_drawstate(false);
+    //drawer.Set_Drawstate(true);
+    point sq_cen =makepoint(20,50);
+    Square sq= makeSquare(sq_cen,50,15);
+    
 
-    // drawer.draw_Square(Square())
-
+    drawer.draw_Square(sq);
+    
     while (1) {
         drawer.drawNext();
 
@@ -84,22 +83,22 @@ int main(void) {
     return 0;
 }
 
-// ISR(TIMER1_COMPA_vect) {
-//     // LEDS = TCNT1;
-//     PORTC = 0xFF;
-//     PORTD = 0xFF;
+ISR(TIMER1_COMPA_vect) {
+    //LEDS = TCNT1;
+    PORTC = 0xFF;
+    PORTD = 0xFF;
 
-//     while (TCNT1 < 5100) {
-//         if (TCNT1 >= drawer.servo1.value)
-//             PORTC &= ~(1 << drawer.servo1.pin);
+    while (TCNT1 < 5100) {
+        if (TCNT1 >= drawer.servo1.value)
+            PORTC &= ~(1 << drawer.servo1.pin);
 
-//         if (TCNT1 >= drawer.servo2.value)
-//             PORTC &= ~(1 << drawer.servo2.pin);
-//         if (TCNT1 >= drawer.servo_drawstate.value)
-//             PORTD &= ~(1 << drawer.servo_drawstate.pin);
-//     }
+        if (TCNT1 >= drawer.servo2.value)
+            PORTC &= ~(1 << drawer.servo2.pin);
+        if (TCNT1 >= drawer.servo_drawstate.value)
+            PORTD &= ~(1 << drawer.servo_drawstate.pin);
+    }
 
-//     drawer.rotateTimeLeft -= 1;
-// }
+    drawer.rotateTimeLeft -= 1;
+}
 
 
