@@ -10,6 +10,8 @@ public:
     struct Node *front = NULL;
     struct Node *rear = NULL;
 
+    unsigned short length = 0;
+
     void Enqueue(double pos1, double pos2);
 
     void Dequeue();
@@ -20,7 +22,6 @@ public:
 
     bool isEmpty();
 
-    int Length();
 };
 
 #endif
