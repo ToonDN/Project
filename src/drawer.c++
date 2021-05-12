@@ -10,10 +10,6 @@
 const double PI = 3.141592653589793238;
 const double ZERO = 0.000000000001;
 
-void Drawer::straightLineTo(double x, double y)
-{
-    queue.Enqueue(x, y);
-}
 
 Drawer::Drawer()
 {
@@ -33,10 +29,11 @@ Drawer::Drawer()
     servo_drawstate.pin = PIND2;
 }
 
-void Drawer::enqueue(double x, double y)
+void Drawer::enqueueFigure(char value)
 {
-    queue.Enqueue(x, y);
+    figureQueue.Enqueue(value);
 }
+
 
 void Drawer::goTo(double x, double y)
 {
@@ -81,10 +78,10 @@ void Drawer::goTo(double x, double y)
 
 void Drawer::drawNext()
 {
-    if (rotateTimeLeft <= 0 and not queue.isEmpty())
+    if (rotateTimeLeft <= 0 and not pointQueue.isEmpty())
     {
-        const double pos1 = queue.Pos1();
-        const double pos2 = queue.Pos2();
+        const double pos1 = pointQueue.Pos1();
+        const double pos2 = pointQueue.Pos2();
 
         if (pos1 == 10000)
         {
@@ -106,7 +103,7 @@ void Drawer::drawNext()
             Drawer::goTo(pos1 * 82 / 100, pos2 * 82 / 100);
         }
 
-        queue.Dequeue();
+        pointQueue.Dequeue();
     }
     else
     {

@@ -1,21 +1,24 @@
 #include "servos.h"
 #include "figures.h"
-#include "queue.h"
+#include "line_queue.h"
+#include "point_queue.h"
+#include "figure_queue.h"
 
 #ifndef DRAWER_H
 #define DRAWER_H
 
 class Drawer
 {
-public: 
+public:
     Drawer();
 
     Servo servo1 = Servo();
     Servo servo2 = Servo();
-    Servo servo_drawstate= Servo();
+    Servo servo_drawstate = Servo();
 
-    Queue queue = Queue();
-
+    PointQueue pointQueue = PointQueue();
+    LineQueue lineQueue = LineQueue();
+    FigureQueue figureQueue = FigureQueue();
 
     const double len1 = 12.5 / 0.277;
     const double len2 = 15.75 / 0.277;
@@ -23,11 +26,7 @@ public:
     const double offset1 = 0;
     const double offset2 = 0;
 
-    
-    
-
     int rotateTimeLeft = 50; // Clock cycles left until the servos may rotate again
-
 
     void draw_Square(Square sq);
 
@@ -40,16 +39,17 @@ public:
     void draw_2deg_Bezier(Bezier bez);
 
     void goTo(double x, double y);
-    
+
     void straightLineTo(double x, double y);
 
     void drawNext();
 
+    void enqueueFigure(char value);
+
     void enqueue(double x, double y);
-    void Set_Drawstate( bool set_drawing);
+    void Set_Drawstate(bool set_drawing);
 
     void enqueue_drawstate(bool state);
     void enqueue_pauze();
-}
-;
+};
 #endif
