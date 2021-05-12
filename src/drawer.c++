@@ -72,7 +72,7 @@ void Drawer::goTo(double x, double y)
     }
     else
     {
-        rotateTimeLeft = diff2 ;
+        rotateTimeLeft = diff2;
     }
 
     servo1.rotateTo(a1);
@@ -86,7 +86,21 @@ void Drawer::drawNext()
         const double pos1 = queue.Pos1();
         const double pos2 = queue.Pos2();
 
-        Drawer::goTo(pos1*82/100, pos2*82/100);
+        if (pos1 == 10000)
+        {
+            rotateTimeLeft = 100;
+            Set_Drawstate(true);
+        }
+        else if (pos1 == -10000)
+        {
+            rotateTimeLeft = 100;
+            Set_Drawstate(false);
+        }
+        else
+        {
+
+            Drawer::goTo(pos1 * 82 / 100, pos2 * 82 / 100);
+        }
 
         queue.Dequeue();
     }
@@ -178,17 +192,24 @@ void Drawer::draw_2deg_Bezier(Bezier bez)
     while (t < 1)
     {
         t += bez.dt;
-        x += (-(1 - t) * 2 * p0x - 2 * (1-2*t) * p1x + t * 2 * p2x) * bez.dt;
-        y += (-(1 - t) * 2 * p0y - 2 * (1-2*t) * p1y + t * 2 * p2y) * bez.dt;
+        x += (-(1 - t) * 2 * p0x - 2 * (1 - 2 * t) * p1x + t * 2 * p2x) * bez.dt;
+        y += (-(1 - t) * 2 * p0y - 2 * (1 - 2 * t) * p1y + t * 2 * p2y) * bez.dt;
     }
 }
 
-void Drawer::Set_Drawstate( bool set_drawing){
+void Drawer::enqueue_drawstate(bool state)
+{
+    enqueue(state * 20000 - 10000, 0);
+}
+
+void Drawer::Set_Drawstate(bool set_drawing)
+{
     if (set_drawing)
     {
         this->servo_drawstate.rotateTo(135);
-    } else
+    }
+    else
     {
         this->servo_drawstate.rotateTo(110);
-    }    
+    }
 }

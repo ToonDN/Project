@@ -47,6 +47,8 @@ public:
 
     void enqueue(double x, double y);
     void Set_Drawstate( bool set_drawing);
+
+    void enqueue_drawstate(bool state);
 }
 ;
 #endif

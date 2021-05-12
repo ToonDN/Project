@@ -6,10 +6,12 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include <bluetooth_tests.h>
 
 DwenguinoLCD lcd;
 
 Drawer drawer = Drawer();
+
 
 void ButtonControl() {
     //* Buttons control
@@ -31,6 +33,15 @@ void ButtonControl() {
 }
 
 int main(void) {
+    initBoard();
+    LEDS = 0;
+
+    mainTest();
+
+    
+    
+
+    return 5;
     testfigures();
 
     initBoard();
@@ -73,20 +84,22 @@ int main(void) {
     return 0;
 }
 
-ISR(TIMER1_COMPA_vect) {
-    // LEDS = TCNT1;
-    PORTC = 0xFF;
-    PORTD = 0xFF;
+// ISR(TIMER1_COMPA_vect) {
+//     // LEDS = TCNT1;
+//     PORTC = 0xFF;
+//     PORTD = 0xFF;
 
-    while (TCNT1 < 5100) {
-        if (TCNT1 >= drawer.servo1.value)
-            PORTC &= ~(1 << drawer.servo1.pin);
+//     while (TCNT1 < 5100) {
+//         if (TCNT1 >= drawer.servo1.value)
+//             PORTC &= ~(1 << drawer.servo1.pin);
 
-        if (TCNT1 >= drawer.servo2.value)
-            PORTC &= ~(1 << drawer.servo2.pin);
-        if (TCNT1 >= drawer.servo_drawstate.value)
-            PORTD &= ~(1 << drawer.servo_drawstate.pin);
-    }
+//         if (TCNT1 >= drawer.servo2.value)
+//             PORTC &= ~(1 << drawer.servo2.pin);
+//         if (TCNT1 >= drawer.servo_drawstate.value)
+//             PORTD &= ~(1 << drawer.servo_drawstate.pin);
+//     }
 
-    drawer.rotateTimeLeft -= 1;
-}
+//     drawer.rotateTimeLeft -= 1;
+// }
+
+
