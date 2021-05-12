@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef QUEUE_H
 #define QUEUE_H
@@ -10,7 +10,7 @@ public:
     struct Node *front = NULL;
     struct Node *rear = NULL;
 
-    void Enqueue(struct Node *node);
+    void Enqueue(unsigned short int *data);
 
     void Dequeue();
 
@@ -18,7 +18,7 @@ public:
 
     // double Pos2();
 
-    struct Node getFirst();
+    unsigned short int *getFirst();
 
     bool isEmpty();
 

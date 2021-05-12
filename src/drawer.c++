@@ -5,6 +5,7 @@
 #include "servos.h"
 #include "figures.h"
 
+
 #include "dwenguino/dwenguino_board.hpp"
 
 const double PI = 3.141592653589793238;
@@ -31,7 +32,8 @@ Drawer::Drawer()
 
 void Drawer::enqueue(double x, double y)
 {
-    queue.Enqueue(&Node(x,y));
+    unsigned short int data[] = {x, y};
+    queue.Enqueue(data);
 }
 
 void Drawer::goTo(double x, double y)
@@ -79,9 +81,9 @@ void Drawer::drawNext()
 {
     if (rotateTimeLeft <= 0 and not queue.isEmpty())
     {
-        const struct Node node = queue.getFirst();
-        const double pos1 = node.pos1;
-        const double pos2 = node.pos2;
+        
+        unsigned short int pos1 = queue.getFirst()[0];
+        unsigned short int pos2 = queue.getFirst()[1];
 
         if (pos1 == 10000)
         {

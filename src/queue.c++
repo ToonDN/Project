@@ -6,14 +6,15 @@
 struct Node *front = NULL;
 struct Node *rear = NULL;
 
-void Queue::Enqueue(struct Node * node) {
+void Queue::Enqueue(unsigned short int *data)
+{
     struct Node *temp =
         (struct Node *)malloc(sizeof(struct Node));
-
-    temp = node;
+    temp->data = data;
 
     temp->next = NULL;
-    if (front == NULL && rear == NULL) {
+    if (front == NULL && rear == NULL)
+    {
         front = rear = temp;
         return;
     }
@@ -21,21 +22,22 @@ void Queue::Enqueue(struct Node * node) {
     rear = temp;
 }
 
-void Queue::Dequeue() {
+void Queue::Dequeue()
+{
     struct Node *temp = front;
-    if (front == NULL) {
+    if (front == NULL)
+    {
         return;
     }
-    if (front == rear) {
+    if (front == rear)
+    {
         front = rear = NULL;
-    } else {
+    }
+    else
+    {
         front = front->next;
     }
     free(temp);
-}
-
-struct Node Queue::getFirst() {
-    return *front;
 }
 
 // double Queue::Pos1() {
@@ -46,14 +48,22 @@ struct Node Queue::getFirst() {
 //     return front->pos2;
 // }
 
-bool Queue::isEmpty() {
+unsigned short int *Queue::getFirst()
+{
+    return front->data;
+}
+
+bool Queue::isEmpty()
+{
     return (front == NULL);
 }
 
-int Queue::Length() {
+int Queue::Length()
+{
     int result = 0;
     struct Node *temp = front;
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         result++;
         temp = temp->next;
     }
