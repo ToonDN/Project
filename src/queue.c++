@@ -6,11 +6,11 @@
 struct Node *front = NULL;
 struct Node *rear = NULL;
 
-void Queue::Enqueue(struct Node node) {
+void Queue::Enqueue(struct Node * node) {
     struct Node *temp =
         (struct Node *)malloc(sizeof(struct Node));
 
-    temp = &node;
+    temp = node;
 
     temp->next = NULL;
     if (front == NULL && rear == NULL) {

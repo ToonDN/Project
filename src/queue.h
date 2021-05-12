@@ -10,7 +10,7 @@ public:
     struct Node *front = NULL;
     struct Node *rear = NULL;
 
-    void Enqueue(struct Node node);
+    void Enqueue(struct Node *node);
 
     void Dequeue();
 

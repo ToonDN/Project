@@ -10,11 +10,6 @@
 const double PI = 3.141592653589793238;
 const double ZERO = 0.000000000001;
 
-void Drawer::straightLineTo(double x, double y)
-{
-
-    queue.Enqueue(Node(x, y));
-}
 
 Drawer::Drawer()
 {
@@ -36,7 +31,7 @@ Drawer::Drawer()
 
 void Drawer::enqueue(double x, double y)
 {
-    queue.Enqueue(Node(x,y));
+    queue.Enqueue(&Node(x,y));
 }
 
 void Drawer::goTo(double x, double y)
