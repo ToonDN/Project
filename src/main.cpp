@@ -34,15 +34,7 @@ void ButtonControl() {
 
 int main(void) {
     initBoard();
-    LEDS = 0;
-
-    //mainTest();
-
     
-    
-
-    //return 5;
-
     initBoard();
     LEDS = 0;
 
@@ -62,20 +54,25 @@ int main(void) {
 
     lcd.initLCD();
     
-    //drawer.enqueue_drawstate(true);
-    // drawer.enqueue(60,30);
-    // drawer.enqueue_drawstate(true);
+    // drawer.enqueue(30,30);
     // drawer.enqueue(50,50);
+    // drawer.enqueue(30,50);
+    // drawer.enqueue(50,70); 
+    // drawer.enqueue(60,50);
+    // drawer.enqueue(60,70);
+    
+    // drawer.enqueue_drawstate(true);
     // drawer.enqueue_drawstate(false);
-    //drawer.Set_Drawstate(true);
+    
     point sq_cen =makepoint(20,50);
-    Square sq= makeSquare(sq_cen,50,15);
+    Square sq= makeSquare(sq_cen,15,15);
     
 
     drawer.draw_Square(sq);
     
-    while (1) {
-        drawer.drawNext();
+    
+    while (!drawer.queue.isEmpty()) {
+        
 
         ButtonControl();
     }
@@ -99,6 +96,7 @@ ISR(TIMER1_COMPA_vect) {
     }
 
     drawer.rotateTimeLeft -= 1;
+    drawer.drawNext();
 }
 
 

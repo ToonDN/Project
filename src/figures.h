@@ -15,7 +15,7 @@ struct point
     point center; 
     double length; //height y
     double width; //height x
-    const double dx= 0.025; // actual value to be decided
+    const double dx= 0.05; // actual value to be decided
     
     void show_var(); // prints the values
     void set_var(point c,double l, double w);// change the values 

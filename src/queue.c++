@@ -12,7 +12,7 @@ void Queue::Enqueue(double pos1, double pos2)
 
     while (length > 300)
     {
-        _delay_ms(1);
+        _delay_ms(20);
     };
 
     struct Node *temp =

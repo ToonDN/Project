@@ -124,30 +124,31 @@ void Drawer::draw_Square(Square sq)
     enqueue_drawstate(false);
     enqueue(x, y);
     // set drawer_on
-    enqueue_drawstate(true);
+    // enqueue_drawstate(true);
     while (y < c.posy + l / 2) // arm: lower left -> upper left
     {
         y += sq.dx;
         enqueue(x, y);
     }
-    // enqueue_pauze();
-    // while (x < c.posx + w / 2) //arm: upper left -> upper right
-    // {
-    //     x += sq.dx;
-    //     enqueue(x, y);
-    // }
-    // enqueue_pauze();
-    // while (y > c.posy - l / 2) //arm: upper right -> lower right
-    // {
-    //     y -= sq.dx;
-    //     enqueue(x, y);
-    // }
-    // enqueue_pauze();
-    // while (x > c.posx - w / 2) //arm: lower right->lower left
-    // {
-    //     x -= sq.dx;
-    //     enqueue(x, y);
-    // }
+    enqueue_pauze();
+    while (x < c.posx + w / 2) //arm: upper left -> upper right
+    {
+        x += sq.dx;
+        enqueue(x, y);
+    }
+    enqueue_pauze();
+    while (y > c.posy - l / 2) //arm: upper right -> lower right
+    {
+        y -= sq.dx;
+        enqueue(x, y);
+    }
+    enqueue_pauze();
+    while (x > c.posx - w / 2) //arm: lower right->lower left
+    {
+        x -= sq.dx;
+        enqueue(x, y);
+    }
+    enqueue_drawstate(false);
 }
 
 void Drawer::draw_Circle(Circle c)
