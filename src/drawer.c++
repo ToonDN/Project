@@ -39,8 +39,8 @@ void Drawer::drawLine(double x, double y) {
     double dy = (y - currentY) / 100;
 
 
-    for (int i = 0; i < 100; i++) {
-        goTo(currentX + dx, currentY + dy);
+    for (int i = 1; i < 100; i++) {
+        enqueue(currentX + i*dx, currentY + i*dy);
     }
 }
 

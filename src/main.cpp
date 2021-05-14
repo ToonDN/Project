@@ -53,7 +53,11 @@ int main(void) {
     sei();
 
     lcd.initLCD();
-    
+
+    // drawer.enqueue(30,30);
+    // drawer.enqueue_drawstate(true);
+    // drawer.drawLine(60,70);
+    // drawer.enqueue_drawstate(false);   
     // drawer.enqueue(30,30);
     // drawer.enqueue(50,50);
     // drawer.enqueue(30,50);
@@ -64,17 +68,17 @@ int main(void) {
     // drawer.enqueue_drawstate(true);
     // drawer.enqueue_drawstate(false);
     
-    point sq_cen =makepoint(20,50);
-    Square sq= makeSquare(sq_cen,15,15);
+    // point sq_cen =makepoint(20,50);
+    // Square sq= makeSquare(sq_cen,15,15);
     
 
-    drawer.draw_Square(sq);
+    // drawer.draw_Square(sq);
     
     
-    while (!drawer.queue.isEmpty()) {
+    while (1) {
         
-
-        ButtonControl();
+        
+        //ButtonControl();
     }
 
     return 0;
@@ -84,7 +88,7 @@ ISR(TIMER1_COMPA_vect) {
     //LEDS = TCNT1;
     PORTC = 0xFF;
     PORTD = 0xFF;
-
+    
     while (TCNT1 < 5100) {
         if (TCNT1 >= drawer.servo1.value)
             PORTC &= ~(1 << drawer.servo1.pin);

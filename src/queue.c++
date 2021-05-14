@@ -10,10 +10,10 @@ struct Node *rear = NULL;
 void Queue::Enqueue(double pos1, double pos2)
 {
 
-    while (length > 300)
-    {
-        _delay_ms(20);
-    };
+    // while (length > 300)
+    // {
+    //     _delay_ms(20);
+    // };
 
     struct Node *temp =
         (struct Node *)malloc(sizeof(struct Node));
