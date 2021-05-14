@@ -41,8 +41,7 @@ public:
 
     void goTo(double x, double y);
     
-    void straightLineTo(double x, double y);
-
+    void drawLine(double x, double y);
     void drawNext();
 
     void enqueue(double x, double y);

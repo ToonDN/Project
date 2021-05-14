@@ -10,10 +10,8 @@
 const double PI = 3.141592653589793238;
 const double ZERO = 0.000000000001;
 
-void Drawer::straightLineTo(double x, double y)
-{
-    queue.Enqueue(x, y);
-}
+
+
 
 Drawer::Drawer()
 {
@@ -31,6 +29,19 @@ Drawer::Drawer()
     servo_drawstate.low = 1330;
     servo_drawstate.value = 3800;
     servo_drawstate.pin = PIND2;
+}
+
+void Drawer::drawLine(double x, double y) {
+    double currentX = 30;
+    double currentY = 30;
+
+    double dx = (x - currentX) / 100;
+    double dy = (y - currentY) / 100;
+
+
+    for (int i = 0; i < 100; i++) {
+        goTo(currentX + dx, currentY + dy);
+    }
 }
 
 void Drawer::enqueue(double x, double y)
