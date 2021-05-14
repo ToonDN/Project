@@ -5,8 +5,8 @@ struct Node
 {
 public:
     // Positions of the servos
-    double pos1;
-    double pos2;
+    unsigned short value1;
+    unsigned short value2;
     Node *next; // Pointer to the next node
 
     

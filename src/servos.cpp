@@ -1,14 +1,16 @@
 #include "servos.h"
 
-
-void Servo::rotateTo(double value)
+void Servo::setValue(unsigned short _value)
 {
-    angle = value;
-    setValue();
+    value = _value;
 }
 
-void Servo::setValue()
+void Servo::setAngle(double angle)
 {
     value = low + ((angle / 180) * (high - low));
 }
 
+unsigned short Servo::getValue(double angle)
+{
+    return low + ((angle / 180) * (high - low));
+}

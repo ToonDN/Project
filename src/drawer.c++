@@ -4,162 +4,90 @@
 #include "queue.h"
 #include "servos.h"
 #include "figures.h"
+#include "constants.h"
+#include "globals.h"
+#include "calculations.h"
 
 #include "dwenguino/dwenguino_board.hpp"
 
-const double PI = 3.141592653589793238;
-const double ZERO = 0.000000000001;
-
-
-
-
 Drawer::Drawer()
 {
-    servo1.high = 4750;
-    servo1.low = 1330;
-    servo1.value = 2800;
-    servo1.pin = PINC0;
-
-    servo2.high = 4750;
-    servo2.low = 1330;
-    servo2.value = 2800;
-    servo2.pin = PINC1;
-
-    servo_drawstate.high = 4750;
-    servo_drawstate.low = 1330;
-    servo_drawstate.value = 3800;
-    servo_drawstate.pin = PIND2;
 }
 
-void Drawer::drawLine(double x, double y) {
-    double currentX = 30;
-    double currentY = 30;
-
-    double dx = (x - currentX) / 100;
-    double dy = (y - currentY) / 100;
-
-
-    for (int i = 0; i < 100; i++) {
-        goTo(currentX + dx, currentY + dy);
-    }
-}
-
-void Drawer::enqueue(double x, double y)
+void Drawer::gotoValues(unsigned short v1, unsigned short v2)
 {
-    queue.Enqueue(x, y);
+    servo1.setValue(v1);
+    servo2.setValue(v2);
 }
 
-void Drawer::goTo(double x, double y)
+void Drawer::gotoCoordinates(double x, double y)
 {
-    if (x == 0 && y == 0)
-    {
-        x += ZERO;
-        y += ZERO;
-    }
-    else if (x == 0)
-    {
-        x = ZERO;
-        y -= ZERO;
-    }
-    else if (y == 0)
-    {
-        y = ZERO;
-        x -= ZERO;
-    }
-
-    double totalLen = sqrt(pow(x, 2) + pow(y, 2));
-    double angle2 = acos((-pow(totalLen, 2) + pow(len1, 2) + pow(len2, 2)) / (2 * len1 * len2));
-
-    double angle1 = atan(y / x) + acos((pow(len1, 2) + pow(x, 2) + pow(y, 2) - pow(len2, 2)) / (2 * len1 * sqrt(pow(x, 2) + pow(y, 2))));
-    double a1 = 180 - (angle1 * 180 / PI) + offset1;
-    double a2 = 180 - (angle2 * 180 / PI) + offset2;
-
-    //* Set rotatetimeleft based on rotation angle
-    double diff1 = abs(a1 - Drawer::servo1.angle);
-    double diff2 = abs(a2 - Drawer::servo2.angle);
-    if (diff1 > diff2)
-    {
-        rotateTimeLeft = diff1;
-    }
-    else
-    {
-        rotateTimeLeft = diff2;
-    }
-
-    servo1.rotateTo(a1);
-    servo2.rotateTo(a2);
+    unsigned short values[2] = {3000, 3000};
+    valuesFromCoordinates(x, y, values);
+    gotoValues(values[0], values[1]);
 }
 
 void Drawer::drawNext()
 {
     if (rotateTimeLeft <= 0 and not queue.isEmpty())
     {
-        const double pos1 = queue.Pos1();
-        const double pos2 = queue.Pos2();
+        const unsigned short v1 = queue.Value1();
+        const unsigned short v2 = queue.Value2();
 
-        if (pos1 == 10000)
+        if (v1 == 65535 && v2 == 65535) // True drawstate
         {
-            rotateTimeLeft = 15;
+            rotateTimeLeft = 50;
             Set_Drawstate(true);
         }
-        else if (pos1 == -10000)
+        else if (v1 == 65534 && v2 == 65534) // False drawstate
         {
-            rotateTimeLeft = 15;
+            rotateTimeLeft = 50;
             Set_Drawstate(false);
-        }else if (pos1 ==-10001)
-        {
-            rotateTimeLeft = 15;
         }
-        
         else
         {
-
-            Drawer::goTo(pos1 * 82 / 100, pos2 * 82 / 100);
+            Drawer::gotoValues(v1, v2);
         }
-
         queue.Dequeue();
-    }
-    else
-    {
     }
 }
 // draw instructions need to be ale to turn the drawer on or off
 void Drawer::draw_Square(Square sq)
 {
-    const point c = sq.center;
-    const double l = sq.length;
-    const double w = sq.width;
-    double x = c.posx - w / 2;
-    double y = c.posy - l / 2;
-    // set drawer_off
-    enqueue_drawstate(false);
-    enqueue(x, y);
-    // set drawer_on
-    // enqueue_drawstate(true);
-    while (y < c.posy + l / 2) // arm: lower left -> upper left
-    {
-        y += sq.dx;
-        enqueue(x, y);
-    }
-    enqueue_pauze();
-    while (x < c.posx + w / 2) //arm: upper left -> upper right
-    {
-        x += sq.dx;
-        enqueue(x, y);
-    }
-    enqueue_pauze();
-    while (y > c.posy - l / 2) //arm: upper right -> lower right
-    {
-        y -= sq.dx;
-        enqueue(x, y);
-    }
-    enqueue_pauze();
-    while (x > c.posx - w / 2) //arm: lower right->lower left
-    {
-        x -= sq.dx;
-        enqueue(x, y);
-    }
-    enqueue_drawstate(false);
+    // const point c = sq.center;
+    // const double l = sq.length;
+    // const double w = sq.width;
+    // double x = c.posx - w / 2;
+    // double y = c.posy - l / 2;
+    // // set drawer_off
+    // enqueue_drawstate(false);
+    // enqueue(x, y);
+    // // set drawer_on
+    // // enqueue_drawstate(true);
+    // while (y < c.posy + l / 2) // arm: lower left -> upper left
+    // {
+    //     y += sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_pauze();
+    // while (x < c.posx + w / 2) //arm: upper left -> upper right
+    // {
+    //     x += sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_pauze();
+    // while (y > c.posy - l / 2) //arm: upper right -> lower right
+    // {
+    //     y -= sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_pauze();
+    // while (x > c.posx - w / 2) //arm: lower right->lower left
+    // {
+    //     x -= sq.dx;
+    //     enqueue(x, y);
+    // }
+    // enqueue_drawstate(false);
 }
 
 void Drawer::draw_Circle(Circle c)
@@ -223,18 +151,24 @@ void Drawer::enqueue_drawstate(bool state)
     enqueue(state * 20000 - 10000, 0);
 }
 
+void Drawer::enqueueShape(Shape *shape)
+{
+    shape->draw(&queue);
+}
+
 void Drawer::Set_Drawstate(bool set_drawing)
 {
     if (set_drawing)
     {
-        this->servo_drawstate.rotateTo(0);
+        servoDrawstate.setAngle(0);
     }
     else
     {
-        this->servo_drawstate.rotateTo(130);
+        servoDrawstate.setAngle(175);
     }
 }
 
-void Drawer::enqueue_pauze(){
-    enqueue (-10001,0);
+void Drawer::enqueue_pauze()
+{
+    enqueue(-10001, 0);
 }

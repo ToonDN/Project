@@ -1,18 +1,18 @@
 #include "figures.h"
 #include <stdio.h>
 
-void Square::show_var()
-{
-    printf("Center of square: x = %f, y = %f \n", center.posx, center.posy);
-    printf("Shape of square: length = %f ,width = %f\n", length, width);
-}
+// void Square::show_var()
+// {
+//     printf("Center of square: x = %f, y = %f \n", center.posx, center.posy);
+//     printf("Shape of square: length = %f ,width = %f\n", length, width);
+// }
 
-void Square::set_var(point c, double l, double b)
-{
-    center = c;
-    length = l;
-    width = b;
-}
+// void Square::set_var(point c, double l, double b)
+// {
+//     center = c;
+//     length = l;
+//     width = b;
+// }
 
 void Circle::show_var()
 {
@@ -47,14 +47,14 @@ point makepoint( double x, double y)
     p.posy = y;
     return p;
 }
-Square makeSquare(point c, double l, double h)
-{
-    Square sq;
-    sq.center = c;
-    sq.length = l;
-    sq.width = h;
-    return sq;
-}
+// Square makeSquare(point c, double l, double h)
+// {
+//     Square sq;
+//     sq.center = c;
+//     sq.length = l;
+//     sq.width = h;
+//     return sq;
+// }
 
 Circle makeCircle(point c, double r)
 {
@@ -82,8 +82,8 @@ void testfigures()
     printf("%lf\n", punt.posy);
 
     // test square
-    Square rechthoek = makeSquare(makepoint(15, 15), 5, 10);
-    rechthoek.show_var();
+    // Square rechthoek = makeSquare(makepoint(15, 15), 5, 10);
+    // rechthoek.show_var();
 
     // // test circle
     Circle cirkel = makeCircle(makepoint(60, 45), 8);

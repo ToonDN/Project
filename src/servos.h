@@ -5,19 +5,16 @@ class Servo
 {
 
 public:
-    unsigned int low;
-    unsigned int high;
-    int pin;
-    double value;
-    double angle = 0;
-    bool isRotating = false;
+    unsigned short low;
+    unsigned short high;
+    unsigned char pin;
+    unsigned short value = 3000;
 
-    void rotateTo(double value);
-    void setValue();
+    Servo(unsigned short _low, unsigned short _high, unsigned char _pin) : low(_low), high(_high), pin(_pin) {}
 
-
+    void setAngle(double angle);
+    void setValue(unsigned short _value);
+    unsigned short getValue(double angle);
 };
 
 #endif
-
-
