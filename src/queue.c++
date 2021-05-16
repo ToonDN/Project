@@ -3,22 +3,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <util/delay.h>
+#include "calculations.h"
 
 struct Node *front = NULL;
 struct Node *rear = NULL;
 
-void Queue::Enqueue(double pos1, double pos2)
+void Queue::enqueueValues(unsigned short value1, unsigned short value2)
 {
-
-    // while (length > 300)
-    // {
-    //     _delay_ms(20);
-    // };
+    while (length > 300)
+    {
+        _delay_ms(2);
+    };
 
     struct Node *temp =
         (struct Node *)malloc(sizeof(struct Node));
-    temp->pos1 = pos1;
-    temp->pos2 = pos2;
+
+    temp->value1 = value1;
+    temp->value2 = value2;
 
     temp->next = NULL;
     if (front == NULL && rear == NULL)
@@ -30,6 +31,13 @@ void Queue::Enqueue(double pos1, double pos2)
     rear = temp;
 
     length++;
+}
+
+
+void Queue::enqueueCoordinates(double x, double y) {
+    unsigned short values[2];
+    valuesFromCoordinates(x, y, values);
+    enqueueValues(values[0], values[1]);
 }
 
 void Queue::Dequeue()
@@ -51,14 +59,14 @@ void Queue::Dequeue()
     length--;
 }
 
-double Queue::Pos1()
+unsigned short Queue::Value1()
 {
-    return front->pos1;
+    return front->value1;
 }
 
-double Queue::Pos2()
+unsigned short Queue::Value2()
 {
-    return front->pos2;
+    return front->value2;
 }
 
 bool Queue::isEmpty()
@@ -66,3 +74,8 @@ bool Queue::isEmpty()
     return (front == NULL);
 }
 
+void Queue::setPos(double _x, double _y)
+{
+    x = _x;
+    y = _y;
+}

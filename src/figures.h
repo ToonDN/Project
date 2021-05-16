@@ -8,20 +8,20 @@ struct point
 };
 
 
- class Square
- {
+//  class Square
+//  {
     
- public:
-    point center; 
-    double length; //height y
-    double width; //height x
-    const double dx= 0.05; // actual value to be decided
+//  public:
+//     point center; 
+//     double length; //height y
+//     double width; //height x
+//     const double dx= 0.05; // actual value to be decided
     
-    void show_var(); // prints the values
-    void set_var(point c,double l, double w);// change the values 
+//     void show_var(); // prints the values
+//     void set_var(point c,double l, double w);// change the values 
     
      
- };
+//  };
  
 class Circle
 {
@@ -60,7 +60,7 @@ class Grid
 
 point makepoint(double x, double y);
 
-Square makeSquare(point c, double l, double h);
+// Square makeSquare(point c, double l, double h);
 
 
 Circle makeCircle(point c, double r);

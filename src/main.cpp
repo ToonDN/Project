@@ -7,13 +7,16 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <bluetooth_tests.h>
+#include "shapes.h"
+#include "constants.h"
+#include "globals.h"
 
 DwenguinoLCD lcd;
 
-Drawer drawer = Drawer();
+Drawer DRAWER = Drawer();
 
-
-void ButtonControl() {
+void ButtonControl()
+{
     //* Buttons control
     if (!(PINE & 1 << PINE7)) //* Top
     {
@@ -32,16 +35,10 @@ void ButtonControl() {
     }
 }
 
-int main(void) {
-    initBoard();
-    
+void Init()
+{
     initBoard();
     LEDS = 0;
-
-    // Create servo variables
-    //* Servo 1 heeft het rechte stuk, Servo 2 heeft het ronde stuk
-
-    // Set servos as output
     DDRC = 0xFF;
     DDRD = 0xFF;
 
@@ -51,56 +48,66 @@ int main(void) {
 
     ICR1 = 39999; //20 ms
     sei();
+}
 
-    lcd.initLCD();
+void ServosInit()
+{
+    DRAWER.Set_Drawstate(false);
+    DRAWER.gotoCoordinates(50, 50);
+    DRAWER.queue.setPos(50, 50);
 
-    // drawer.enqueue(30,30);
-    // drawer.enqueue_drawstate(true);
-    // drawer.drawLine(60,70);
-    // drawer.enqueue_drawstate(false);   
-    // drawer.enqueue(30,30);
-    // drawer.enqueue(50,50);
-    // drawer.enqueue(30,50);
-    // drawer.enqueue(50,70); 
-    // drawer.enqueue(60,50);
-    // drawer.enqueue(60,70);
-    
-    // drawer.enqueue_drawstate(true);
-    // drawer.enqueue_drawstate(false);
-    
-    // point sq_cen =makepoint(20,50);
-    // Square sq= makeSquare(sq_cen,15,15);
-    
 
-    // drawer.draw_Square(sq);
-    
-    
-    while (1) {
-        
-        
-        //ButtonControl();
+    // DRAWER.servoDrawstate.setAngle(175);
+    // DRAWER.enqueueShape(&Goto(10, 10));
+    // // DRAWER.gotoCoordinates(x, y);
+
+    // _delay_ms(1000);
+}
+
+int main(void)
+{
+
+    Init();
+    ServosInit();
+
+    DRAWER.enqueueShape(&DrawState(true));
+    DRAWER.enqueueShape(&Line(30, 70));
+    DRAWER.enqueueShape(&Line(80, 50));
+    // DRAWER.enqueueShape(&Line(10, 10));
+    //DRAWER.enqueueShape(&Goto(1, 5));
+
+    while (1)
+    {
+        ButtonControl();
     }
 
     return 0;
 }
 
-ISR(TIMER1_COMPA_vect) {
+ISR(TIMER1_COMPA_vect)
+{
     //LEDS = TCNT1;
     PORTC = 0xFF;
     PORTD = 0xFF;
-    
-    while (TCNT1 < 5100) {
-        if (TCNT1 >= drawer.servo1.value)
-            PORTC &= ~(1 << drawer.servo1.pin);
 
-        if (TCNT1 >= drawer.servo2.value)
-            PORTC &= ~(1 << drawer.servo2.pin);
-        if (TCNT1 >= drawer.servo_drawstate.value)
-            PORTD &= ~(1 << drawer.servo_drawstate.pin);
+    unsigned short v1 = DRAWER.servo1.value;
+    unsigned short v2 = DRAWER.servo1.value;
+    unsigned short v3 = DRAWER.servoDrawstate.value;
+
+    // unsigned short values[3] = {v1, v2, v3};
+
+    while (TCNT1 < 5100)
+    {
+        if (TCNT1 >= v1)
+            PORTC &= ~(1 << DRAWER.servo1.pin);
+
+        if (TCNT1 >= v2)
+            PORTC &= ~(1 << DRAWER.servo2.pin);
+
+        if (TCNT1 >= v3)
+            PORTD &= ~(1 << DRAWER.servoDrawstate.pin);
     }
 
-    drawer.rotateTimeLeft -= 1;
-    drawer.drawNext();
+    DRAWER.rotateTimeLeft -= 1;
+    DRAWER.drawNext();
 }
-
-

@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef QUEUE_H
 #define QUEUE_H
@@ -11,17 +11,19 @@ public:
     struct Node *rear = NULL;
 
     unsigned short length = 0;
-
-    void Enqueue(double pos1, double pos2);
+    double x, y;
+    void enqueueValues(unsigned short value1, unsigned short value2);
+    void enqueueCoordinates(double x, double y);
 
     void Dequeue();
 
-    double Pos1();
+    unsigned short Value1();
 
-    double Pos2();
+    unsigned short Value2();
 
     bool isEmpty();
 
+    void setPos(double x, double y);
 };
 
 #endif
