@@ -63,10 +63,10 @@ point makepoint(double x, double y);
 // Square makeSquare(point c, double l, double h);
 
 
-Circle makeCircle(point c, double r);
+// Circle makeCircle(point c, double r);
 
 
-Bezier makeBezier(point p0, point p1, point p2);
+// Bezier makeBezier(point p0, point p1, point p2);
 
 void testfigures();
 #endif 

@@ -48,7 +48,7 @@ public:
      */
     void setValue(unsigned short _value);
     /**
-     * @brief Get the servo value
+     * @brief Get the servo value corresopnding with the given angle
      * 
      * @param angle 
      * @return unsigned short 

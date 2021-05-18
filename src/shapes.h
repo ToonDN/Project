@@ -58,4 +58,27 @@ struct One : Shape
     void draw(Queue *pQueue);
 };
 
+struct Circle : Shape
+{
+    double x_cen, y_cen;
+    double radius;
+    const double dx=0.05;
+    Circle(double x_cen,double y_cen,double radius){}
+
+    void draw(Queue* pQueue);
+};
+
+struct Bezier : Shape
+{
+    double p0_x, p0_y;
+    double p1_x, p1_y;
+    double p2_x, p2_y;
+    const double dt =0.05;
+    Bezier(double p0_x, double p0_y,double p1_x, double p1_y,double p2_x, double p2_y){}
+
+    void draw(Queue *pQueue);
+};
+
+
+
 #endif
