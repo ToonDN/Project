@@ -90,6 +90,7 @@ void Receival_Handler(Drawer *drawer)
         // Smiley
         else if (shape == 251)
         {
+            drawer->enqueueShape(&Smiley());
         }
 
         // Goto
