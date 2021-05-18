@@ -16,7 +16,6 @@ int main(void)
 {
     // Set all the registers and values
     InitAll(&DRAWER);
-    DRAWER.gotoCoordinates(0, 85);
 
     while (1)
     {

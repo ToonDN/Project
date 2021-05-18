@@ -54,7 +54,6 @@ public:
      */
     void gotoCoordinates(double x, double y);
 
-    void drawLine(double x, double y);
     /**
      * @brief applies the servo values of first element of the queue and removes the first element of the queue
      * 
@@ -73,7 +72,7 @@ public:
      * 
      * @param set_drawing 
      */
-    void Set_Drawstate(bool set_drawing);
+    void setDrawstate(bool set_drawing);
     /**
      * @brief adds servo values to the queue corresponding to drawing or not drawing depending on the boolean state
      * 

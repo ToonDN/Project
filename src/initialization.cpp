@@ -23,7 +23,7 @@ void ServosInit(Drawer* drawer)
 {
     drawer->servo1.setValue(10000);
     drawer->servo2.setValue(10000);
-    drawer->Set_Drawstate(false);
+    drawer->setDrawstate(false);
     _delay_ms(300);
     drawer->gotoCoordinates(0, 40);
 }

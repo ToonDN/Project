@@ -35,12 +35,12 @@ void Drawer::drawNext()
         if (v1 == 65535 && v2 == 65535) // True drawstate
         {
             rotateTimeLeft = 50;
-            Set_Drawstate(true);
+            setDrawstate(true);
         }
         else if (v1 == 65534 && v2 == 65534) // False drawstate
         {
             rotateTimeLeft = 50;
-            Set_Drawstate(false);
+            setDrawstate(false);
         }
         else
         {
@@ -59,7 +59,7 @@ void Drawer::enqueueShape(Shape *shape)
     shape->draw(&queue);
 }
 
-void Drawer::Set_Drawstate(bool set_drawing)
+void Drawer::setDrawstate(bool set_drawing)
 {
     if (set_drawing)
     {

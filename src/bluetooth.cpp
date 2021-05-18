@@ -45,7 +45,7 @@ void Receival_Handler(Drawer *drawer)
     else if (value == 254)
     {
         unsigned char state = UART_Receive();
-        drawer->Set_Drawstate(state == 1);
+        drawer->setDrawstate(state == 1);
     }
     // Receiving shape
     else if (value == 253)
@@ -55,22 +55,70 @@ void Receival_Handler(Drawer *drawer)
         // Line
         if (shape == 255)
         {
+            unsigned char x = UART_Receive();
+            unsigned char y = UART_Receive();
+            drawer->enqueueShape(&Line(x, y));
         }
         // Square
         else if (shape == 254)
         {
+            unsigned char p0_x = UART_Receive();
+            unsigned char p0_y = UART_Receive();
+            unsigned char p1_x = UART_Receive();
+            unsigned char p1_y = UART_Receive();
+            drawer->enqueueShape(&Square(p0_x, p0_y, p1_x, p1_y));
         }
         // Bezier curve
         else if (shape == 253)
         {
+            unsigned char p0_x = UART_Receive();
+            unsigned char p0_y = UART_Receive();
+            unsigned char p1_x = UART_Receive();
+            unsigned char p1_y = UART_Receive();
+            unsigned char p2_x = UART_Receive();
+            unsigned char p2_y = UART_Receive();
+            drawer->enqueueShape(&Bezier(p0_x, p0_y, p1_x, p1_y, p2_x, p2_y));
         }
         // Circle
         else if (shape == 252)
         {
+            unsigned char x = UART_Receive();
+            unsigned char y = UART_Receive();
+            unsigned char r = UART_Receive();
+            drawer->enqueueShape(&Circle(x, y, r));
         }
         // Smiley
         else if (shape == 251)
         {
+        }
+
+        // Goto
+        else if (shape == 250)
+        {
+            unsigned char x = UART_Receive();
+            unsigned char y = UART_Receive();
+            drawer->enqueueShape(&Goto(x, y));
+        }
+
+        // Drawstate
+        else if (shape == 249)
+        {
+            unsigned char state = UART_Receive();
+            drawer->enqueueShape(&DrawState(state));
+        }
+        // Start-end line
+        else if (shape == 248) {
+            unsigned char x1 = UART_Receive();
+            unsigned char y1 = UART_Receive();
+            unsigned char x2 = UART_Receive();
+            unsigned char y2 = UART_Receive();
+            drawer->enqueueShape(&DrawState(false));
+            drawer->enqueueShape(&Goto(x1, y1));
+            drawer->enqueueShape(&DrawState(true));
+            drawer->enqueueShape(&Line(x2, y2));
+            drawer->enqueueShape(&Line(x2, y2));
+            drawer->enqueueShape(&DrawState(false));
+
         }
     }
 }
