@@ -4,10 +4,17 @@
 struct Node
 {
 public:
-    // Positions of the servos
+    /**
+     * @brief value corresponding with servo 1 and servo 2
+     * 
+     */
     unsigned short value1;
     unsigned short value2;
-    Node *next; // Pointer to the next node
+    /**
+     * @brief // Pointer to the next node
+     * 
+     */
+    Node *next; 
 
     
 };
