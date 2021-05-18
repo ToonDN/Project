@@ -48,45 +48,36 @@ void DrawState::draw(Queue *pQueue)
 void Circle::draw(Queue *pQueue)
 {
 
-    const double r = radius;
-    double x = x_cen - r + ZERO;
-    double y = y_cen;
     // set drawer_off
+    double steps = radius * 15;
     DrawState(false).draw(pQueue);
-    Goto(x, y).draw(pQueue);
-    //set_drawer_on
-    while (x < x_cen + r) // position +180 -> +0
-    {
-        x += dx;
-        if (x == r + x_cen) //avoid singularities
-        {
-            x += ZERO;
-        }
+    Goto(x_cen + radius, y_cen).draw(pQueue);
+    DrawState(true).draw(pQueue);
+    double angle = 0;
 
-        y += -(x - x_cen) * dx / sqrt(r * r - (x - x_cen) * (x - x_cen));
-        pQueue->enqueueCoordinates(x, y);
-    }
-    while (x > x_cen - r) // position -0-> -180
+    for (double i = 0; i < steps * 1.1; i++)
     {
-        x -= dx;
-        if (x == r - x_cen) //avoid singularities
-        {
-            x -= ZERO;
-        }
-        y += (x - x_cen) * dx / sqrt(r * r - (x - x_cen) * (x - x_cen));
-        pQueue->enqueueCoordinates(x, y);
+        angle = (double(i) / double(steps)) * 2 * PI;
+        pQueue->enqueueCoordinates(x_cen + radius * cos(angle), y_cen + radius * sin(angle));
     }
-    pQueue->setPos(x, y);
+    DrawState(false).draw(pQueue);
+
+    Goto(x_cen + radius, y_cen).draw(pQueue);
+    pQueue->setPos(x_cen + radius, y_cen + radius);
 }
+
+void Smiley::draw(Queue *pQueue)
+{
+    Circle(30, 40, 30).draw(pQueue);
+    Circle(44, 27, 8).draw(pQueue);
+    Circle(16, 27, 8).draw(pQueue);
+
+    Bezier(44, 50, 30, 66, 16, 50).draw(pQueue);
+    DrawState(false).draw(pQueue);
+}
+
 void Bezier::draw(Queue *pQueue)
 {
-//Bezier: = t->(1 - t) ^ 2 * P0 + 2(1 - t) *t *P1 + t ^ 2 *P2 
-    // const double p0x = bez.P0.posx;
-    // const double p0y = bez.P0.posy;
-    // const double p1x = bez.P1.posx;
-    // const double p1y = bez.P1.posy;
-    // const double p2x = bez.P2.posx;
-    // const double p2y = bez.P2.posy;
     double t = 0;
 
     double x = p0_x;
@@ -99,7 +90,8 @@ void Bezier::draw(Queue *pQueue)
     while (t < 1)
     {
         t += dt;
-        x += (-(1 - t) * 2 * p0_x - 2 * (1 - 2 * t) * p1_x + t * 2 * p2_x) * dt;
-        y += (-(1 - t) * 2 * p0_y - 2 * (1 - 2 * t) * p1_y + t * 2 * p2_y) * dt;
+        x += (-2 * (1 - t) * p0_x - 2 * t * p1_x + 2 * (1 - t) * p1_x + 2 * t * p2_x) * dt;
+        y += (-2 * (1 - t) * p0_y - 2 * t * p1_y + 2 * (1 - t) * p1_y + 2 * t * p2_y) * dt;
+        pQueue->enqueueCoordinates(x, y);
     }
 }

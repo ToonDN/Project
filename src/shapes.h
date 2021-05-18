@@ -54,21 +54,6 @@ struct DrawState : Shape
     void draw(Queue *pQueue);
 };
 
-// struct Zero : Shape
-// {
-//     double x, y;
-//     Zero(double _x, double _y) : x(_x), y(_y) {}
-
-//     void draw(Queue *pQueue);
-// };
-
-// struct One : Shape
-// {
-//     double x, y;
-//     One(double _x, double _y) : x(_x), y(_y) {}
-
-//     void draw(Queue *pQueue);
-// };
 /**
  * @brief structure for draweng a circle
  * 
@@ -77,26 +62,30 @@ struct Circle : Shape
 {
     double x_cen, y_cen;
     double radius;
-    const double dx=0.05;
-    Circle(double x_cen,double y_cen,double radius){}
+    Circle(double _x_cen, double _y_cen, double _radius) : x_cen(_x_cen), y_cen(_y_cen), radius(_radius) {}
 
-    void draw(Queue* pQueue);
+    void draw(Queue *pQueue);
 };
 /**
  * @brief structure for drawing a bezier curve
  * 
  */
+
+struct Smiley : Shape
+{
+    Smiley() {};
+    void draw(Queue *pQueue);
+};
+
 struct Bezier : Shape
 {
     double p0_x, p0_y;
     double p1_x, p1_y;
     double p2_x, p2_y;
-    const double dt =0.05;
-    Bezier(double p0_x, double p0_y,double p1_x, double p1_y,double p2_x, double p2_y){}
+    const double dt = 0.05;
+    Bezier(double _p0_x, double _p0_y, double _p1_x, double _p1_y, double _p2_x, double _p2_y) : p0_x(_p0_x), p0_y(_p0_y), p1_x(_p1_x), p1_y(_p1_y), p2_x(_p2_x), p2_y(_p2_y){};
 
     void draw(Queue *pQueue);
 };
-
-
 
 #endif
