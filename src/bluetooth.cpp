@@ -16,10 +16,6 @@ unsigned char UART_Receive()
     return UDR1;
 }
 
-void UART_Send(unsigned char value)
-{
-}
-
 void UART_Init()
 {
     // Set BAUD rate

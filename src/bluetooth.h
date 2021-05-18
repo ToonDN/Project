@@ -13,12 +13,7 @@ void UART_Init();
  * @return unsigned char 
  */
 unsigned char UART_Receive();
-/**
- * @brief send unsigned char via bluetooth 
- * 
- * @param value 
- */
-void UART_Send(unsigned char value);
+
 /**
  * @brief listen for instructions
  * 
