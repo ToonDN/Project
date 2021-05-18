@@ -19,7 +19,7 @@ int main(void)
 
     while (1)
     {
-        Reveival_Handler(&DRAWER);
+        Receival_Handler(&DRAWER);
     }
 
     return 0;

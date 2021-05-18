@@ -51,8 +51,8 @@ void Drawer::drawNext()
     }
 }
 // draw instructions need to be ale to turn the drawer on or off
-void Drawer::draw_Square(Square sq)
-{
+// void Drawer::draw_Square(Square sq)
+// {
     // const point c = sq.center;
     // const double l = sq.length;
     // const double w = sq.width;
@@ -87,7 +87,7 @@ void Drawer::draw_Square(Square sq)
     //     enqueue(x, y);
     // }
     // enqueue_drawstate(false);
-}
+// }
 
 // void Drawer::draw_Circle(Circle c)
 // {
@@ -145,29 +145,29 @@ void Drawer::draw_Square(Square sq)
 //     // }
 // }
 
-void Drawer::enqueue_drawstate(bool state)
-{
-    enqueue(state * 20000 - 10000, 0);
-}
+// void Drawer::enqueue_drawstate(bool state)
+// {
+//     enqueue(state * 20000 - 10000, 0);
+// }
 
 void Drawer::enqueueShape(Shape *shape)
 {
     shape->draw(&queue);
 }
 
-void Drawer::Set_Drawstate(bool set_drawing)
-{
-    if (set_drawing)
-    {
-        servoDrawstate.setAngle(0);
-    }
-    else
-    {
-        servoDrawstate.setAngle(175);
-    }
-}
+// void Drawer::Set_Drawstate(bool set_drawing)
+// {
+//     if (set_drawing)
+//     {
+//         servoDrawstate.setAngle(0);
+//     }
+//     else
+//     {
+//         servoDrawstate.setAngle(175);
+//     }
+// }
 
-void Drawer::enqueue_pauze()
-{
-    enqueue(-10001, 0);
-}
+// void Drawer::enqueue_pauze()
+// {
+//     enqueue(-10001, 0);
+// }

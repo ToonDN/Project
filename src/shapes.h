@@ -8,7 +8,10 @@ class Shape
 public:
     virtual void draw(Queue *pQueue) = 0;
 };
-
+/**
+ * @brief  structure for changing the positon of the pencil to (x,y) 
+ * 
+ */
 struct Goto : Shape
 {
     double x, y;
@@ -16,7 +19,10 @@ struct Goto : Shape
 
     void draw(Queue *pQueue);
 };
-
+/**
+ * @brief structure for drawing a straight line to (x,y)
+ * 
+ */
 struct Line : Shape
 {
     double x, y;
@@ -24,7 +30,10 @@ struct Line : Shape
 
     void draw(Queue *pQueue);
 };
-
+/**
+ * @brief structure for drawing a rectangle
+ * 
+ */
 struct Square : Shape
 {
     double topleftX, topleftY, bottomrightX, bottomrightY;
@@ -33,7 +42,10 @@ struct Square : Shape
 
     void draw(Queue *pQueue);
 };
-
+/**
+ * @brief structure for controlling the pencil
+ * 
+ */
 struct DrawState : Shape
 {
     const bool state;
@@ -42,22 +54,25 @@ struct DrawState : Shape
     void draw(Queue *pQueue);
 };
 
-struct Zero : Shape
-{
-    double x, y;
-    Zero(double _x, double _y) : x(_x), y(_y) {}
+// struct Zero : Shape
+// {
+//     double x, y;
+//     Zero(double _x, double _y) : x(_x), y(_y) {}
 
-    void draw(Queue *pQueue);
-};
+//     void draw(Queue *pQueue);
+// };
 
-struct One : Shape
-{
-    double x, y;
-    One(double _x, double _y) : x(_x), y(_y) {}
+// struct One : Shape
+// {
+//     double x, y;
+//     One(double _x, double _y) : x(_x), y(_y) {}
 
-    void draw(Queue *pQueue);
-};
-
+//     void draw(Queue *pQueue);
+// };
+/**
+ * @brief structure for draweng a circle
+ * 
+ */
 struct Circle : Shape
 {
     double x_cen, y_cen;
@@ -67,7 +82,10 @@ struct Circle : Shape
 
     void draw(Queue* pQueue);
 };
-
+/**
+ * @brief structure for drawing a bezier curve
+ * 
+ */
 struct Bezier : Shape
 {
     double p0_x, p0_y;

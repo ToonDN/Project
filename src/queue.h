@@ -19,6 +19,10 @@ public:
      * 
      */
     unsigned short length = 0;
+    /**
+     * @brief (x,y) variables that record the current position of the pencil
+     * 
+     */
     double x, y;
     /**
      * @brief add values to the queue
@@ -59,6 +63,12 @@ public:
      */
     bool isEmpty();
 
+    /**
+     * @brief update the recorded position of the pencil
+     * 
+     * @param x 
+     * @param y 
+     */
     void setPos(double x, double y);
 };
 

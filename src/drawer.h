@@ -17,22 +17,18 @@ public:
      */
     Drawer();
     /**
-     * @brief servo controlling the first arm
+     * @brief servo's controlling the first and second arm
      * 
      */
     Servo servo1 = SERVO1;
-    /**
-     * @brief servo controlling the second arm
-     * 
-     */
     Servo servo2 = SERVO2;
     /**
-     * @brief servo crontrolling the pencil
+     * @brief servo controlling the pencil
      * 
      */
     Servo servoDrawstate = SERVO_DRAWSTATE;
     /**
-     * @brief queue that contains servo values
+     * @brief queue that will contains servo values
      * 
      */
     Queue queue = Queue();
@@ -43,12 +39,14 @@ public:
      */
     int rotateTimeLeft = 100; 
 
-    void draw_Square(Square sq);
+    // void draw_Square(Square sq);
 
-    void draw_Circle(Circle cir);
+    // void draw_Circle(Circle cir);
     
 
-    void draw_2deg_Bezier(Bezier bez);
+    // void draw_2deg_Bezier(Bezier bez);
+
+
     /**
      * @brief sets the servo values
      * 
@@ -89,12 +87,12 @@ public:
      * 
      * @param state 
      */
-    void enqueue_drawstate(bool state);
+    // void enqueue_drawstate(bool state);
     /**
      * @brief adds servo values to the queue corresponding to a short pauze
      * 
      */
-    void enqueue_pauze();
+    // void enqueue_pauze();
     /**
      * @brief Adds servo values to the queue to draw a figure
      * 
