@@ -51,26 +51,7 @@ int main(void)
 
     while (1)
     {
-        unsigned char value = UART_Receive();
-
-        // Receiving coordinates
-        if (value == 255)
-        {
-            unsigned char x = UART_Receive();
-            unsigned char y = UART_Receive();
-
-            DRAWER.gotoCoordinates(x / 3.78, y / 3);
-        }
-        // Receiving drawstate
-        else if (value == 254)
-        {
-            unsigned char state = UART_Receive();
-            DRAWER.Set_Drawstate(state == 1);
-        } 
-        // Receiving shape
-        else if (value == 253) {
-            
-        }
+        Reveival_Handler();
     }
 
     return 0;
