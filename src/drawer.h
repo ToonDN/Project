@@ -1,5 +1,4 @@
 #include "servos.h"
-#include "figures.h"
 #include "queue.h"
 #include "shapes.h"
 #include "dwenguino/dwenguino_board.hpp"
@@ -38,13 +37,6 @@ public:
      * 
      */
     int rotateTimeLeft = 100; 
-
-    // void draw_Square(Square sq);
-
-    // void draw_Circle(Circle cir);
-    
-
-    // void draw_2deg_Bezier(Bezier bez);
 
 
     /**

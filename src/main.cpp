@@ -1,6 +1,6 @@
 #include "drawer.h"
 #include "dwenguino/dwenguino_board.hpp"
-#include "figures.h"
+
 #include "servos.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>

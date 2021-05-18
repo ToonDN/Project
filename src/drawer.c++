@@ -3,7 +3,6 @@
 #include "node.h"
 #include "queue.h"
 #include "servos.h"
-#include "figures.h"
 #include "constants.h"
 #include "calculations.h"
 #include "math.h"
@@ -72,7 +71,4 @@ void Drawer::Set_Drawstate(bool set_drawing)
     }
 }
 
-// void Drawer::enqueue_pauze()
-// {
-//     enqueue(-10001, 0);
-// }
+

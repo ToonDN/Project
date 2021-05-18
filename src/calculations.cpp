@@ -64,8 +64,8 @@ void valuesFromCoordinates(double x, double y, unsigned short values[2])
     double angle2 = acos((-pow(totalLen, 2) + pow(LEN1, 2) + pow(LEN2, 2)) / (2 * LEN1 * LEN2));
 
     double angle1 = atan(y / x) + acos((pow(LEN1, 2) + pow(x, 2) + pow(y, 2) - pow(LEN2, 2)) / (2 * LEN1 * sqrt(pow(x, 2) + pow(y, 2))));
-    double a1 = (angle1 * 180 / PI) + OFFSET1;
-    double a2 = (angle2 * 180 / PI) + OFFSET2;
+    double a1 = (angle1 * 180 / PI) ;
+    double a2 = (angle2 * 180 / PI) ;
 
     // Get and set the values associated with the angles
     values[0] = SERVO1.getValue(a1);
