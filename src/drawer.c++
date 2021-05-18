@@ -155,17 +155,17 @@ void Drawer::enqueueShape(Shape *shape)
     shape->draw(&queue);
 }
 
-// void Drawer::Set_Drawstate(bool set_drawing)
-// {
-//     if (set_drawing)
-//     {
-//         servoDrawstate.setAngle(0);
-//     }
-//     else
-//     {
-//         servoDrawstate.setAngle(175);
-//     }
-// }
+void Drawer::Set_Drawstate(bool set_drawing)
+{
+    if (set_drawing)
+    {
+        servoDrawstate.setAngle(0);
+    }
+    else
+    {
+        servoDrawstate.setAngle(175);
+    }
+}
 
 // void Drawer::enqueue_pauze()
 // {
