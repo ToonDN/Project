@@ -7,10 +7,17 @@ void Servo::setValue(unsigned short _value)
 
 void Servo::setAngle(double angle)
 {
-    value = low + ((angle / 180) * (high - low));
+    value = getValue(angle);
 }
 
 unsigned short Servo::getValue(double angle)
 {
-    return low + ((angle / 180) * (high - low));
+    if (angle > 90)
+    {
+        return deg_90 + (angle - 90) * ((double(deg_180) - double(deg_90)) / 90);
+    }
+    else
+    {
+        return deg_90 - (90 - angle) * ((double(deg_90) - double(deg_0)) / 90);
+    }
 }

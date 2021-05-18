@@ -3,6 +3,7 @@
 #include "queue.h"
 #include "shapes.h"
 #include "dwenguino/dwenguino_board.hpp"
+#include "constants.h"
 
 #ifndef DRAWER_H
 #define DRAWER_H
@@ -12,15 +13,15 @@ class Drawer
 public:
     Drawer();
 
-    Servo servo1 = Servo(1330, 4750, PINC0);
-    Servo servo2 = Servo(1330, 4750, PINC1);
-    Servo servoDrawstate = Servo(1330, 4750, PIND2);
+    Servo servo1 = SERVO1;
+    Servo servo2 = SERVO2;
+    Servo servoDrawstate = SERVO_DRAWSTATE;
 
     Queue queue = Queue();
 
     unsigned short current_x, current_y = 0;
 
-        int rotateTimeLeft = 100; // Clock cycles left until the servos may rotate again
+    int rotateTimeLeft = 100; // Clock cycles left until the servos may rotate again
 
     void draw_Square(Square sq);
 

@@ -4,6 +4,21 @@
 
 void valuesFromCoordinates(double x, double y, unsigned short values[2])
 {
+    if (y < 12 && x < 7)
+    {
+        y = 12;
+        x = 7;
+    }
+    if (x < 12 && y < 7)
+    {
+        x = 12;
+        y = 7;
+    }
+    if (x > 66)
+    {
+        x = 66;
+    }
+
     x = x * 0.82;
     y = y * 0.82;
 
@@ -27,12 +42,11 @@ void valuesFromCoordinates(double x, double y, unsigned short values[2])
     double angle2 = acos((-pow(totalLen, 2) + pow(LEN1, 2) + pow(LEN2, 2)) / (2 * LEN1 * LEN2));
 
     double angle1 = atan(y / x) + acos((pow(LEN1, 2) + pow(x, 2) + pow(y, 2) - pow(LEN2, 2)) / (2 * LEN1 * sqrt(pow(x, 2) + pow(y, 2))));
-    double a1 = 180 - (angle1 * 180 / PI) + OFFSET1;
-    double a2 = 180 - (angle2 * 180 / PI) + OFFSET2;
+    double a1 = (angle1 * 180 / PI) + OFFSET1;
+    double a2 = (angle2 * 180 / PI) + OFFSET2;
 
-    values[0] = 1330 + ((a1 / 180) * 3420);
-    values[1] = 1330 + ((a2 / 180) * 3420);
-
+    values[0] = SERVO1.getValue(a1);
+    values[1] = SERVO2.getValue(a2);
 
     //* Set rotatetimeleft based on rotation angle
     // double diff1 = abs(a1 - Drawer::servo1.angle);

@@ -15,7 +15,7 @@ void Line::draw(Queue *pQueue)
     unsigned char steps = 100;
 
     double dx = (x - currentX) / steps;
-    double dy = (y - currentX) / steps;
+    double dy = (y - currentY) / steps;
 
     for (int i = 1; i < steps + 1; i++)
     {
@@ -27,6 +27,11 @@ void Line::draw(Queue *pQueue)
 
 void Square::draw(Queue *pQueue)
 {
+    Goto(topleftX, topleftY).draw(pQueue);
+    Line(topleftX, bottomrightY).draw(pQueue);
+    Line(bottomrightX, bottomrightY).draw(pQueue);
+    Line(bottomrightX, topleftX).draw(pQueue);
+    Line(topleftX, topleftY).draw(pQueue);
 }
 
 void DrawState::draw(Queue *pQueue)

@@ -6,12 +6,10 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include <bluetooth_tests.h>
+#include "bluetooth.h"
 #include "shapes.h"
 #include "constants.h"
 #include "globals.h"
-
-DwenguinoLCD lcd;
 
 Drawer DRAWER = Drawer();
 
@@ -35,10 +33,8 @@ void ButtonControl()
     }
 }
 
-void Init()
+void InterruptInit()
 {
-    initBoard();
-    LEDS = 0;
     DDRC = 0xFF;
     DDRD = 0xFF;
 
@@ -52,33 +48,42 @@ void Init()
 
 void ServosInit()
 {
+    DRAWER.servo1.setValue(10000);
+    DRAWER.servo2.setValue(10000);
     DRAWER.Set_Drawstate(false);
-    DRAWER.gotoCoordinates(50, 50);
-    DRAWER.queue.setPos(50, 50);
+    _delay_ms(300);
+    DRAWER.gotoCoordinates(0, 40);
+}
 
-
-    // DRAWER.servoDrawstate.setAngle(175);
-    // DRAWER.enqueueShape(&Goto(10, 10));
-    // // DRAWER.gotoCoordinates(x, y);
-
-    // _delay_ms(1000);
+void InitAll()
+{
+    initBoard();
+    LEDS = 0;
+    InterruptInit();
+    ServosInit();
+    UART_Init();
 }
 
 int main(void)
 {
-
-    Init();
-    ServosInit();
-
-    DRAWER.enqueueShape(&DrawState(true));
-    DRAWER.enqueueShape(&Line(30, 70));
-    DRAWER.enqueueShape(&Line(80, 50));
-    // DRAWER.enqueueShape(&Line(10, 10));
-    //DRAWER.enqueueShape(&Goto(1, 5));
+    InitAll();
 
     while (1)
     {
-        ButtonControl();
+        unsigned char value = UART_Receive();
+
+        if (value == 255)
+        {
+            unsigned char x = UART_Receive();
+            unsigned char y = UART_Receive();
+
+            DRAWER.gotoCoordinates(x / 3.78, y / 3);
+        }
+        else if (value == 254)
+        {
+            unsigned char state = UART_Receive();
+            DRAWER.Set_Drawstate(state == 1);
+        }
     }
 
     return 0;
@@ -91,10 +96,8 @@ ISR(TIMER1_COMPA_vect)
     PORTD = 0xFF;
 
     unsigned short v1 = DRAWER.servo1.value;
-    unsigned short v2 = DRAWER.servo1.value;
+    unsigned short v2 = DRAWER.servo2.value;
     unsigned short v3 = DRAWER.servoDrawstate.value;
-
-    // unsigned short values[3] = {v1, v2, v3};
 
     while (TCNT1 < 5100)
     {
