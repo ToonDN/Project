@@ -1,0 +1,1 @@
+void InitAll(Drawer* drawer);

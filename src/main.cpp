@@ -1,57 +1,25 @@
 #include "drawer.h"
 #include "dwenguino/dwenguino_board.hpp"
-#include "dwenguino/dwenguino_lcd.hpp"
 #include "figures.h"
 #include "servos.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include "bluetooth.h"
 #include "shapes.h"
 #include "constants.h"
+#include "bluetooth.h"
+#include "initialization.h"
 
 Drawer DRAWER = Drawer();
-
-void InterruptInit()
-{
-    // Set all register for enabling interrupts
-    DDRC = 0xFF;
-    DDRD = 0xFF;
-
-    TCCR1A |= 1 << WGM11;
-    TCCR1B |= 1 << WGM12 | 1 << WGM13 | 1 << CS11;
-    TIMSK1 |= 1 << OCIE1A;
-
-    ICR1 = 39999; //20 ms
-    sei();
-}
-
-void ServosInit()
-{
-    DRAWER.servo1.setValue(10000);
-    DRAWER.servo2.setValue(10000);
-    DRAWER.Set_Drawstate(false);
-    _delay_ms(300);
-    DRAWER.gotoCoordinates(0, 40);
-}
-
-void InitAll()
-{
-    initBoard();
-    LEDS = 0;
-    InterruptInit();
-    ServosInit();
-    UART_Init();
-}
 
 int main(void)
 {
     // Set all the registers and values
-    InitAll();
+    InitAll(&DRAWER);
 
     while (1)
     {
-        Reveival_Handler();
+        Reveival_Handler(&DRAWER);
     }
 
     return 0;

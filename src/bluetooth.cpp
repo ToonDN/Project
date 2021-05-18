@@ -33,7 +33,7 @@ void UART_Init()
     UCSR1C = (1 << UCSZ11) | (1 << UCSZ10);
 }
 
-void Receival_Handler(Drawer *drawer)
+void Reveival_Handler(Drawer *drawer)
 {
     unsigned char value = UART_Receive();
 
