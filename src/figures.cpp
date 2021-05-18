@@ -72,24 +72,3 @@ Bezier makeBezier(point p0, point p1, point p2)
     bez.P2 = p2;
     return bez;
 }
-
-void testfigures()
-{
-    //test point
-    point punt = makepoint(1, 8);
-    
-    printf("%lf\n", punt.posx);
-    printf("%lf\n", punt.posy);
-
-    // test square
-    // Square rechthoek = makeSquare(makepoint(15, 15), 5, 10);
-    // rechthoek.show_var();
-
-    // // test circle
-    Circle cirkel = makeCircle(makepoint(60, 45), 8);
-    cirkel.show_var();
-    
-    // //test Bezier
-    Bezier Bez = makeBezier(makepoint(15, 15), makepoint(20, 35), makepoint(15, 15));
-    Bez.show_var();
-}

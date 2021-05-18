@@ -9,6 +9,8 @@ public:
      * @brief servo values representing different angles for the servo
      * 
      */
+
+    // Storing 90 degree to reduce max/average interpolation distance and error margin
     unsigned short deg_0;
     unsigned short deg_180;
     unsigned short deg_90;

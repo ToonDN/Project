@@ -17,4 +17,6 @@
 #define SERVO2  Servo(4705, 2875, 1110, PINC1)
 #define SERVO_DRAWSTATE  Servo(1330, 3100, 4750, PIND7)
 
+#define MAX_QUEUE_LENGTH 200
+
 #endif

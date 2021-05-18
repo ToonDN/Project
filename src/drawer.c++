@@ -5,7 +5,6 @@
 #include "servos.h"
 #include "figures.h"
 #include "constants.h"
-#include "globals.h"
 #include "calculations.h"
 
 #include "dwenguino/dwenguino_board.hpp"

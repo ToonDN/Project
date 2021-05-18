@@ -9,32 +9,12 @@
 #include "bluetooth.h"
 #include "shapes.h"
 #include "constants.h"
-#include "globals.h"
 
 Drawer DRAWER = Drawer();
 
-void ButtonControl()
-{
-    //* Buttons control
-    if (!(PINE & 1 << PINE7)) //* Top
-    {
-    }
-    if (!(PINE & 1 << PINE6)) //* Right
-    {
-    }
-    if (!(PINE & 1 << PINE5)) //* Bottom
-    {
-    }
-    if (!(PINE & 1 << PINE4)) //* Left
-    {
-    }
-    if (!(PINC & 1 << PINC7)) //* Center
-    {
-    }
-}
-
 void InterruptInit()
 {
+    // Set all register for enabling interrupts
     DDRC = 0xFF;
     DDRD = 0xFF;
 
@@ -66,12 +46,14 @@ void InitAll()
 
 int main(void)
 {
+    // Set all the registers and values
     InitAll();
 
     while (1)
     {
         unsigned char value = UART_Receive();
 
+        // Receiving coordinates
         if (value == 255)
         {
             unsigned char x = UART_Receive();
@@ -79,10 +61,15 @@ int main(void)
 
             DRAWER.gotoCoordinates(x / 3.78, y / 3);
         }
+        // Receiving drawstate
         else if (value == 254)
         {
             unsigned char state = UART_Receive();
             DRAWER.Set_Drawstate(state == 1);
+        } 
+        // Receiving shape
+        else if (value == 253) {
+            
         }
     }
 
@@ -91,26 +78,24 @@ int main(void)
 
 ISR(TIMER1_COMPA_vect)
 {
-    //LEDS = TCNT1;
+    // Enable writing to the ports
     PORTC = 0xFF;
     PORTD = 0xFF;
 
-    unsigned short v1 = DRAWER.servo1.value;
-    unsigned short v2 = DRAWER.servo2.value;
-    unsigned short v3 = DRAWER.servoDrawstate.value;
-
+    // Give signal to the servos if their value is reached
     while (TCNT1 < 5100)
     {
-        if (TCNT1 >= v1)
+        if (TCNT1 >= DRAWER.servo1.value)
             PORTC &= ~(1 << DRAWER.servo1.pin);
 
-        if (TCNT1 >= v2)
+        if (TCNT1 >= DRAWER.servo2.value)
             PORTC &= ~(1 << DRAWER.servo2.pin);
 
-        if (TCNT1 >= v3)
+        if (TCNT1 >= DRAWER.servoDrawstate.value)
             PORTD &= ~(1 << DRAWER.servoDrawstate.pin);
     }
 
+    // Draw the next item, this is done in the interrupt because the queue is blocking the mainloop
     DRAWER.rotateTimeLeft -= 1;
     DRAWER.drawNext();
 }

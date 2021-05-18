@@ -37,7 +37,6 @@ public:
      */
     Queue queue = Queue();
 
-    unsigned short current_x, current_y = 0;
     /**
      * @brief Clock cycles left until the servos may rotate again
      * 
