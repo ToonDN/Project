@@ -11,24 +11,24 @@ public:
 
 struct Goto : Shape
 {
-    unsigned short x, y;
-    Goto(unsigned short _x, unsigned short _y) : x(_x), y(_y) {}
+    double x, y;
+    Goto(double _x, double _y) : x(_x), y(_y) {}
 
     void draw(Queue *pQueue);
 };
 
 struct Line : Shape
 {
-    unsigned short x, y;
-    Line(unsigned short _x, unsigned short _y) : x(_x), y(_y) {}
+    double x, y;
+    Line(double _x, double _y) : x(_x), y(_y) {}
 
     void draw(Queue *pQueue);
 };
 
 struct Square : Shape
 {
-    unsigned short topleftX, topleftY, bottomrightX, bottomrightY;
-    Square(unsigned short _topleftX, unsigned short _topleftY, unsigned short _bottomrightX, unsigned short _bottomrightY)
+    double topleftX, topleftY, bottomrightX, bottomrightY;
+    Square(double _topleftX, double _topleftY, double _bottomrightX, double _bottomrightY)
         : topleftX(_topleftX), topleftY(_topleftY), bottomrightX(_bottomrightX), bottomrightY(_bottomrightY) {}
 
     void draw(Queue *pQueue);
@@ -44,16 +44,16 @@ struct DrawState : Shape
 
 struct Zero : Shape
 {
-    unsigned short x, y;
-    Zero(unsigned short _x, unsigned short _y) : x(_x), y(_y) {}
+    double x, y;
+    Zero(double _x, double _y) : x(_x), y(_y) {}
 
     void draw(Queue *pQueue);
 };
 
 struct One : Shape
 {
-    unsigned short x, y;
-    One(unsigned short _x, unsigned short _y) : x(_x), y(_y) {}
+    double x, y;
+    One(double _x, double _y) : x(_x), y(_y) {}
 
     void draw(Queue *pQueue);
 };
