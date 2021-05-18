@@ -16,7 +16,7 @@ int main(void)
 {
     // Set all the registers and values
     InitAll(&DRAWER);
-    DRAWER.enqueueShape(&Smiley());
+    DRAWER.gotoCoordinates(0, 85);
 
     while (1)
     {

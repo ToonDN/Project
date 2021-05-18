@@ -15,10 +15,28 @@ void valuesFromCoordinates(double x, double y, unsigned short values[2])
         y = 7;
     }
 
-    // Dont go off the board on the left side
+    // Don't go off the left side of the board
     if (x > 66)
     {
         x = 66;
+    }
+
+    // Don't go off the bottom of the board
+    if (y > 85)
+    {
+        y = 85;
+    }
+
+    // Don't go off the right side of the board
+    if (x < -10)
+    {
+        x = -10;
+    }
+
+    // Don't go off the top of the board
+    if (y < 0)
+    {
+        y = 0;
     }
 
     x = x * 0.82;
@@ -40,7 +58,7 @@ void valuesFromCoordinates(double x, double y, unsigned short values[2])
         y = ZERO;
         x -= ZERO;
     }
-    
+
     // Calculate the wanted servo angles
     double totalLen = sqrt(pow(x, 2) + pow(y, 2));
     double angle2 = acos((-pow(totalLen, 2) + pow(LEN1, 2) + pow(LEN2, 2)) / (2 * LEN1 * LEN2));
